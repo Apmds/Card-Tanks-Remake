@@ -12,10 +12,6 @@ class_name Game extends Node2D
 @export_group("Tanks")
 ## The player tank node in the scene.
 @export var player : PlayerTank
-
-## Array of tank scenes to spawn.
-@export var spawnable_tanks : Array[PackedScene]
-
 ## Number of tanks that spawn in the begining.
 @export var start_spawn_tanks : int
 ## Max number of tiles of distance from the player to spawn a tank.
@@ -24,6 +20,9 @@ class_name Game extends Node2D
 @export var max_tanks = 100
 ## Radius in tiles where tanks cannot spawn.
 @export var not_spawn_radius : int = 6
+
+## Array of tank scenes to spawn.
+var spawnable_tanks : Array[PackedScene] = []
 
 ## The current score.
 var score : int = 0 :
@@ -140,6 +139,16 @@ func spawn_tank() -> void:
 
 func _ready():
 	score = 0
+	
+	# Set spawnable tanks
+	match Global.current_game_mode:
+		Global.gameModes.CLASSIC:
+			spawnable_tanks.append(load("res://Scenes/ai_tank.tscn"))
+		Global.gameModes.TANK_MAYHEM:
+			spawnable_tanks.append(load("res://Scenes/ai_tank.tscn"))
+			spawnable_tanks.append(load("res://Scenes/ai_tank_double_line.tscn"))
+			spawnable_tanks.append(load("res://Scenes/ai_tank_double_l.tscn"))
+	
 	if button_left != null:
 		button_left.connect("pressed", _on_button_left_pressed)
 		randomize_button(button_left)

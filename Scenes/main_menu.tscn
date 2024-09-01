@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://mxenhixj6k77"]
+[gd_scene load_steps=19 format=3 uid="uid://mxenhixj6k77"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_5gtm7"]
 [ext_resource type="Theme" uid="uid://dcjb7qfknp7ir" path="res://Assets/Ui/ui_theme.tres" id="2_holyn"]
@@ -7,6 +7,27 @@
 [ext_resource type="Texture2D" uid="uid://bp5lbppuecqjy" path="res://Assets/Ui/right_arrow_icon.png" id="5_il6h4"]
 [ext_resource type="Texture2D" uid="uid://yk0lk8ehl7mw" path="res://Assets/Main menu/ClassicModeBanner.png" id="6_jkhwi"]
 [ext_resource type="Texture2D" uid="uid://cfjnvw7f7hwpx" path="res://Assets/Ui/check_icon.png" id="7_ftjrw"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_sq8j7"]
+keycode = 32
+
+[sub_resource type="InputEventKey" id="InputEventKey_bvu1b"]
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_n67mw"]
+events = [SubResource("InputEventKey_sq8j7"), SubResource("InputEventKey_bvu1b")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_pyvo4"]
+keycode = 4194319
+
+[sub_resource type="Shortcut" id="Shortcut_hqsk4"]
+events = [SubResource("InputEventKey_pyvo4")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_4it0r"]
+keycode = 4194321
+
+[sub_resource type="Shortcut" id="Shortcut_kq77x"]
+events = [SubResource("InputEventKey_4it0r")]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n58q2"]
 bg_color = Color(0.243137, 0.352941, 0.835294, 0.639216)
@@ -67,6 +88,8 @@ offset_top = 585.0
 offset_right = 377.0
 offset_bottom = 703.0
 theme_type_variation = &"HeaderButton"
+shortcut = SubResource("Shortcut_n67mw")
+shortcut_in_tooltip = false
 text = "Play"
 
 [node name="ModeLeft" type="Button" parent="MainMenu"]
@@ -75,6 +98,8 @@ offset_left = 61.0
 offset_top = 975.0
 offset_right = 141.0
 offset_bottom = 1055.0
+shortcut = SubResource("Shortcut_hqsk4")
+shortcut_in_tooltip = false
 icon = ExtResource("4_evmyr")
 icon_alignment = 1
 expand_icon = true
@@ -85,6 +110,8 @@ offset_left = 402.0
 offset_top = 974.0
 offset_right = 482.0
 offset_bottom = 1054.0
+shortcut = SubResource("Shortcut_kq77x")
+shortcut_in_tooltip = false
 icon = ExtResource("5_il6h4")
 icon_alignment = 1
 expand_icon = true

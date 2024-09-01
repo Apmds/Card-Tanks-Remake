@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bje0f0en8mwdm"]
+
+[ext_resource type="PackedScene" uid="uid://xi4bq7sq2u7r" path="res://Scenes/ai_tank.tscn" id="1_k43ti"]
+[ext_resource type="Texture2D" uid="uid://byss3enpv0edv" path="res://Assets/Tanks/Double_L/idle.png" id="2_gsgse"]
+
+[node name="AITankDoubleL" instance=ExtResource("1_k43ti")]
+
+[node name="RayCast2D2" type="RayCast2D" parent="Rotatable/RayCasts" index="1"]
+target_position = Vector2(0, 100)
+collision_mask = 4
+collide_with_areas = true
+
+[node name="Sprite" parent="Rotatable" index="1"]
+texture = ExtResource("2_gsgse")
+
+[node name="Marker2D2" type="Marker2D" parent="Rotatable/Crossairs" index="1"]
+position = Vector2(0, 19)
+metadata/shoot_direction = 1

@@ -4,7 +4,7 @@ var i = 0
 
 var modesImages = {
 	Global.gameModes.CLASSIC: preload("res://Assets/Main menu/ClassicModeBanner.png"),
-	Global.gameModes.TANK_MAYHEM: preload("res://Assets/Main menu/ClassicModeBanner.png"),
+	Global.gameModes.TANK_MAYHEM: preload("res://Assets/Main menu/TankMayhemModeBanner.png"),
 	Global.gameModes.POWER_MANIA: preload("res://Assets/Main menu/ClassicModeBanner.png"),
 	Global.gameModes.CHAOS_MODE: preload("res://Assets/Main menu/ClassicModeBanner.png"),
 }
@@ -15,6 +15,9 @@ var uncheckIcon = preload("res://Assets/Ui/uncheck_icon.png")
 @onready var modeImage : TextureRect = $MainMenu/ModeImage
 @onready var modeNameLabel : Label = $MainMenu/ModeImage/ModeName
 @onready var highScoreLabel : Label = $MainMenu/HighScore
+@onready var modeLeftButton : Button = $MainMenu/ModeLeft
+@onready var modeRightButton : Button = $MainMenu/ModeRight
+
 @onready var settingsMenu : Control = $Settings
 @onready var soundButton : Button = $Settings/CenterContainer/Panel/MarginContainer/VBoxContainer/Sound/SoundButton
 @onready var musicButton : Button = $Settings/CenterContainer/Panel/MarginContainer/VBoxContainer/Music/MusicButton
@@ -23,6 +26,16 @@ func update_game_mode() -> void:
 	modeNameLabel.text = Global.gameModes.keys()[Global.current_game_mode].replace("_", " ")
 	modeImage.texture = modesImages[Global.current_game_mode]
 	highScoreLabel.text = "High score: " + str(Global.high_scores[Global.current_game_mode])
+	
+	modeLeftButton.disabled = Global.current_game_mode == Global.gameModes.values()[0]
+	modeRightButton.disabled = Global.current_game_mode == Global.gameModes.values()[-1]
+	
+	#-------------------------
+	# Remove later after other gamemodes are made!
+	if Global.current_game_mode == Global.gameModes.TANK_MAYHEM:
+		modeRightButton.disabled = true
+	#-------------------------
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,9 +54,7 @@ func _physics_process(_delta):
 
 
 func _on_play_pressed() -> void:
-	# Delete when the rest of the gamemodes are made
-	if Global.current_game_mode == Global.gameModes.CLASSIC:
-		get_tree().change_scene_to_file("res://Scenes/game.tscn")
+	get_tree().change_scene_to_file("res://Scenes/game.tscn")
 
 
 func _on_mode_left_pressed() -> void:
