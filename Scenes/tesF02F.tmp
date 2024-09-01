@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://15urfifxv7v6"]
+
+[ext_resource type="Texture2D" uid="uid://cl5n3r0krj4rw" path="res://Assets/World/Background.png" id="1_6kmmi"]
+[ext_resource type="PackedScene" uid="uid://pixq3gvowl2w" path="res://Scenes/tank.tscn" id="2_1t7mx"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_offset = Vector2(-16, -16)
+motion_mirroring = Vector2(192, 384)
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
+texture = ExtResource("1_6kmmi")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(192, 384)
+texture = ExtResource("1_6kmmi")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(192, 0)
+texture = ExtResource("1_6kmmi")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(0, 384)
+texture = ExtResource("1_6kmmi")
+
+[node name="Tank" parent="." instance=ExtResource("2_1t7mx")]

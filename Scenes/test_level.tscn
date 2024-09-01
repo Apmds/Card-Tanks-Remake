@@ -1,0 +1,115 @@
+[gd_scene load_steps=13 format=3 uid="uid://15urfifxv7v6"]
+
+[ext_resource type="Texture2D" uid="uid://cl5n3r0krj4rw" path="res://Assets/World/Background.png" id="1_6kmmi"]
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_dli85"]
+[ext_resource type="PackedScene" uid="uid://cublk8qch2vxb" path="res://Scenes/player_tank.tscn" id="2_3njjm"]
+[ext_resource type="PackedScene" uid="uid://xi4bq7sq2u7r" path="res://Scenes/ai_tank.tscn" id="3_724c8"]
+[ext_resource type="Texture2D" uid="uid://bkmb1yrcth2t5" path="res://Assets/Hud/Cards/Move.png" id="4_j2nxs"]
+[ext_resource type="Script" path="res://Scripts/camera.gd" id="4_vpujb"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_d7pg5"]
+action = &"button_left"
+
+[sub_resource type="Shortcut" id="Shortcut_1pr1d"]
+events = [SubResource("InputEventAction_d7pg5")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_q6xbm"]
+action = &"button_center"
+
+[sub_resource type="Shortcut" id="Shortcut_umalo"]
+events = [SubResource("InputEventAction_q6xbm")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_ggex7"]
+action = &"button_right"
+
+[sub_resource type="Shortcut" id="Shortcut_30cyq"]
+events = [SubResource("InputEventAction_ggex7")]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("button_left", "button_center", "button_right", "player")]
+script = ExtResource("1_dli85")
+button_left = NodePath("HUD/Buttons/Left")
+button_center = NodePath("HUD/Buttons/Center")
+button_right = NodePath("HUD/Buttons/Right")
+player = NodePath("PlayerTank")
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_offset = Vector2(-16, -16)
+motion_mirroring = Vector2(192, 384)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
+texture = ExtResource("1_6kmmi")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(192, 384)
+texture = ExtResource("1_6kmmi")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(384, 768)
+texture = ExtResource("1_6kmmi")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(384, 0)
+texture = ExtResource("1_6kmmi")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(0, 768)
+texture = ExtResource("1_6kmmi")
+
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("following")]
+offset = Vector2(0, 64)
+zoom = Vector2(2, 2)
+process_callback = 0
+script = ExtResource("4_vpujb")
+following = NodePath("../PlayerTank")
+
+[node name="PlayerTank" parent="." instance=ExtResource("2_3njjm")]
+collision_mask = 1
+
+[node name="AITank" parent="." instance=ExtResource("3_724c8")]
+position = Vector2(32, -32)
+use_start_position = true
+start_position = Vector2i(1, -1)
+
+[node name="AITank2" parent="." instance=ExtResource("3_724c8")]
+position = Vector2(32, 32)
+use_start_position = true
+start_position = Vector2i(1, 1)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+offset_top = 815.0
+offset_right = 540.0
+offset_bottom = 1200.0
+
+[node name="ColorRect2" type="ColorRect" parent="HUD"]
+offset_right = 540.0
+offset_bottom = 194.0
+
+[node name="Buttons" type="HBoxContainer" parent="HUD"]
+offset_left = 80.0
+offset_top = 942.0
+offset_right = 206.0
+offset_bottom = 990.0
+scale = Vector2(3, 3)
+theme_override_constants/separation = 15
+metadata/_edit_group_ = true
+
+[node name="Left" type="TextureButton" parent="HUD/Buttons"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_1pr1d")
+texture_normal = ExtResource("4_j2nxs")
+
+[node name="Center" type="TextureButton" parent="HUD/Buttons"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_umalo")
+texture_normal = ExtResource("4_j2nxs")
+
+[node name="Right" type="TextureButton" parent="HUD/Buttons"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_30cyq")
+texture_normal = ExtResource("4_j2nxs")

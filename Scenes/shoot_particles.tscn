@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://em6y7qy208kn"]
+
+[node name="ShootParticles" type="CPUParticles2D"]
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+spread = 15.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0

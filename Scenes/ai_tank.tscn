@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://xi4bq7sq2u7r"]
+
+[ext_resource type="PackedScene" uid="uid://pixq3gvowl2w" path="res://Scenes/tank.tscn" id="1_cxs54"]
+[ext_resource type="Script" path="res://Scripts/ai_tank.gd" id="2_twc6m"]
+
+[node name="AITank" instance=ExtResource("1_cxs54")]
+script = ExtResource("2_twc6m")
+
+[node name="RayCasts" type="Node2D" parent="Rotatable" index="0"]
+
+[node name="RayCast2D" type="RayCast2D" parent="Rotatable/RayCasts" index="0"]
+target_position = Vector2(100, 0)
+collision_mask = 4
+collide_with_areas = true
+
+[node name="Timer" type="Timer" parent="." index="2"]
+
+[connection signal="destroyed" from="." to="." method="_on_destroyed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

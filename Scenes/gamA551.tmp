@@ -1,0 +1,179 @@
+[gd_scene load_steps=22 format=3 uid="uid://t2qht3t8tbps"]
+
+[ext_resource type="Script" path="res://Scripts/game.gd" id="1_m3dwi"]
+[ext_resource type="Texture2D" uid="uid://cl5n3r0krj4rw" path="res://Assets/World/Background.png" id="2_dgwsf"]
+[ext_resource type="PackedScene" uid="uid://xi4bq7sq2u7r" path="res://Scenes/ai_tank.tscn" id="2_v5g7p"]
+[ext_resource type="Script" path="res://Scripts/camera.gd" id="3_wt3t1"]
+[ext_resource type="PackedScene" uid="uid://cublk8qch2vxb" path="res://Scenes/player_tank.tscn" id="4_rp1im"]
+[ext_resource type="Texture2D" uid="uid://dikp6orwm75wa" path="res://Assets/Hud/HudBackground.png" id="6_bw4hy"]
+[ext_resource type="Texture2D" uid="uid://cgs8voxmudbme" path="res://Assets/Hud/PauseButton.png" id="6_h07dp"]
+[ext_resource type="Texture2D" uid="uid://bkmb1yrcth2t5" path="res://Assets/Hud/Cards/Move.png" id="6_nmjdf"]
+[ext_resource type="Texture2D" uid="uid://g0y7tir72s5r" path="res://Assets/Hud/PauseButtonPressed.png" id="7_k24da"]
+[ext_resource type="Texture2D" uid="uid://djd61ek7rniop" path="res://Assets/Hud/Cards/MovePressed.png" id="8_4x014"]
+[ext_resource type="Texture2D" uid="uid://b6uauc54jq3mk" path="res://Assets/Hud/PauseButtonHover.png" id="8_tcwo4"]
+[ext_resource type="Texture2D" uid="uid://c6357eip28iu7" path="res://Assets/Hud/Cards/MoveHover.png" id="9_twyd1"]
+[ext_resource type="Theme" uid="uid://dcjb7qfknp7ir" path="res://Assets/Ui/ui_theme.tres" id="12_rjkls"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_rbofp"]
+action = &"pause"
+
+[sub_resource type="Shortcut" id="Shortcut_tijoe"]
+events = [SubResource("InputEventAction_rbofp")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_d7pg5"]
+action = &"button_left"
+
+[sub_resource type="Shortcut" id="Shortcut_1pr1d"]
+events = [SubResource("InputEventAction_d7pg5")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_q6xbm"]
+action = &"button_center"
+
+[sub_resource type="Shortcut" id="Shortcut_umalo"]
+events = [SubResource("InputEventAction_q6xbm")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_ggex7"]
+action = &"button_right"
+
+[sub_resource type="Shortcut" id="Shortcut_30cyq"]
+events = [SubResource("InputEventAction_ggex7")]
+
+[node name="game" type="Node2D" node_paths=PackedStringArray("button_left", "button_center", "button_right", "player")]
+script = ExtResource("1_m3dwi")
+button_left = NodePath("HUD/Down/CenterContainer/Buttons/Left")
+button_center = NodePath("HUD/Down/CenterContainer/Buttons/Center")
+button_right = NodePath("HUD/Down/CenterContainer/Buttons/Right")
+player = NodePath("PlayerTank")
+spawnable_tanks = Array[PackedScene]([ExtResource("2_v5g7p")])
+start_spawn_tanks = 30
+spawn_radius = 13
+max_tanks = null
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_offset = Vector2(-16, -16)
+motion_mirroring = Vector2(192, 384)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
+texture = ExtResource("2_dgwsf")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(192, 384)
+texture = ExtResource("2_dgwsf")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(384, 768)
+texture = ExtResource("2_dgwsf")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(384, 0)
+texture = ExtResource("2_dgwsf")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(0, 768)
+texture = ExtResource("2_dgwsf")
+
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("following")]
+offset = Vector2(0, 32)
+zoom = Vector2(0.5, 0.5)
+process_callback = 0
+script = ExtResource("3_wt3t1")
+following = NodePath("../PlayerTank")
+
+[node name="Tanks" type="Node2D" parent="."]
+
+[node name="PlayerTank" parent="." instance=ExtResource("4_rp1im")]
+collision_mask = 1
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Up" type="TextureRect" parent="HUD"]
+offset_top = -240.0
+offset_right = 540.0
+offset_bottom = 260.0
+texture = ExtResource("6_bw4hy")
+
+[node name="PauseButton" type="TextureButton" parent="HUD/Up"]
+layout_mode = 0
+offset_left = 386.0
+offset_top = 345.0
+offset_right = 514.0
+offset_bottom = 473.0
+shortcut = SubResource("Shortcut_tijoe")
+shortcut_in_tooltip = false
+texture_normal = ExtResource("6_h07dp")
+texture_pressed = ExtResource("7_k24da")
+texture_hover = ExtResource("8_tcwo4")
+texture_disabled = ExtResource("7_k24da")
+stretch_mode = 4
+
+[node name="Down" type="TextureRect" parent="HUD"]
+offset_top = 815.0
+offset_right = 540.0
+offset_bottom = 1315.0
+texture = ExtResource("6_bw4hy")
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD/Down"]
+layout_mode = 0
+offset_right = 180.0
+offset_bottom = 128.0
+scale = Vector2(3, 3)
+metadata/_edit_group_ = true
+
+[node name="Buttons" type="HBoxContainer" parent="HUD/Down/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Left" type="TextureButton" parent="HUD/Down/CenterContainer/Buttons"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_1pr1d")
+shortcut_in_tooltip = false
+texture_normal = ExtResource("6_nmjdf")
+texture_pressed = ExtResource("8_4x014")
+texture_hover = ExtResource("9_twyd1")
+texture_disabled = ExtResource("8_4x014")
+
+[node name="Center" type="TextureButton" parent="HUD/Down/CenterContainer/Buttons"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_umalo")
+shortcut_in_tooltip = false
+texture_normal = ExtResource("6_nmjdf")
+texture_pressed = ExtResource("8_4x014")
+texture_hover = ExtResource("9_twyd1")
+texture_disabled = ExtResource("8_4x014")
+
+[node name="Right" type="TextureButton" parent="HUD/Down/CenterContainer/Buttons"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_30cyq")
+shortcut_in_tooltip = false
+texture_normal = ExtResource("6_nmjdf")
+texture_pressed = ExtResource("8_4x014")
+texture_hover = ExtResource("9_twyd1")
+texture_disabled = ExtResource("8_4x014")
+
+[node name="PauseScreen" type="CanvasLayer" parent="."]
+process_mode = 3
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PauseScreen"]
+offset_right = 540.0
+offset_bottom = 1200.0
+color = Color(0.301961, 0.301961, 0.301961, 0.670588)
+
+[node name="Button" type="Button" parent="PauseScreen"]
+offset_left = 178.0
+offset_top = 634.0
+offset_right = 349.0
+offset_bottom = 713.0
+theme = ExtResource("12_rjkls")
+shortcut = SubResource("Shortcut_tijoe")
+text = "continue"
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[connection signal="pressed" from="HUD/Up/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="PauseScreen/Button" to="." method="_on_unpause_button_pressed"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

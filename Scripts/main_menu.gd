@@ -1,0 +1,90 @@
+extends Control
+
+var i = 0
+
+var modesImages = {
+	Global.gameModes.CLASSIC: preload("res://Assets/Main menu/ClassicModeBanner.png"),
+	Global.gameModes.TANK_MAYHEM: preload("res://Assets/Main menu/ClassicModeBanner.png"),
+	Global.gameModes.POWER_MANIA: preload("res://Assets/Main menu/ClassicModeBanner.png"),
+	Global.gameModes.CHAOS_MODE: preload("res://Assets/Main menu/ClassicModeBanner.png"),
+}
+
+var checkIcon = preload("res://Assets/Ui/check_icon.png")
+var uncheckIcon = preload("res://Assets/Ui/uncheck_icon.png")
+
+@onready var modeImage : TextureRect = $MainMenu/ModeImage
+@onready var modeNameLabel : Label = $MainMenu/ModeImage/ModeName
+@onready var highScoreLabel : Label = $MainMenu/HighScore
+@onready var settingsMenu : Control = $Settings
+@onready var soundButton : Button = $Settings/CenterContainer/Panel/MarginContainer/VBoxContainer/Sound/SoundButton
+@onready var musicButton : Button = $Settings/CenterContainer/Panel/MarginContainer/VBoxContainer/Music/MusicButton
+
+func update_game_mode() -> void:
+	modeNameLabel.text = Global.gameModes.keys()[Global.current_game_mode].replace("_", " ")
+	modeImage.texture = modesImages[Global.current_game_mode]
+	highScoreLabel.text = "High score: " + str(Global.high_scores[Global.current_game_mode])
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	update_game_mode()
+	
+	soundButton.set_pressed_no_signal(Global.sound_effects_on == 1)
+	soundButton.icon = checkIcon if Global.sound_effects_on == 1 else uncheckIcon
+	
+	musicButton.set_pressed_no_signal(Global.music_on == 1)
+	musicButton.icon = checkIcon if Global.music_on == 1 else uncheckIcon
+
+
+func _physics_process(_delta):
+	i += 5
+	$MainMenu/Title.position.y = 222 + sin(deg_to_rad(i))*20
+
+
+func _on_play_pressed() -> void:
+	# Delete when the rest of the gamemodes are made
+	if Global.current_game_mode == Global.gameModes.CLASSIC:
+		get_tree().change_scene_to_file("res://Scenes/game.tscn")
+
+
+func _on_mode_left_pressed() -> void:
+	if Global.current_game_mode != Global.gameModes.values()[0]:
+		Global.current_game_mode -= 1
+		update_game_mode()
+		Global.save_game_data()
+
+func _on_mode_right_pressed() -> void:
+	if Global.current_game_mode != Global.gameModes.values()[-1]:
+		Global.current_game_mode += 1
+		update_game_mode()
+		Global.save_game_data()
+
+
+#-------------------
+# Settings buttons
+#-------------------
+
+func _on_settings_pressed() -> void:
+	get_tree().create_tween().tween_property(settingsMenu, "position", Vector2.ZERO, 0.5).set_ease(Tween.EASE_IN_OUT)
+
+func _on_settings_back_button_pressed() -> void:
+	get_tree().create_tween().tween_property(settingsMenu, "position", Vector2(0, -1200), 0.5).set_ease(Tween.EASE_IN_OUT)
+
+func _on_sound_button_toggled(toggled_on) -> void:
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("SoundEffects"), !toggled_on)
+	
+	Global.sound_effects_on = toggled_on
+	Global.save_game_data()
+	
+	soundButton.icon = checkIcon if Global.sound_effects_on == 1 else uncheckIcon
+
+
+func _on_music_button_toggled(toggled_on) -> void:
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), !toggled_on)
+	
+	Global.music_on = toggled_on
+	Global.save_game_data()
+	
+	musicButton.icon = checkIcon if Global.music_on == 1 else uncheckIcon
+
+
+

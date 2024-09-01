@@ -1,0 +1,149 @@
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://dcjb7qfknp7ir"]
+
+[ext_resource type="Texture2D" uid="uid://cvu6bf0ep44w6" path="res://Assets/Ui/button.png" id="1_yalya"]
+[ext_resource type="FontFile" uid="uid://1lee1hvqp5vx" path="res://Assets/Fonts/FukuCatch @Detetiive.otf" id="2_8u7li"]
+[ext_resource type="Texture2D" uid="uid://cfjnvw7f7hwpx" path="res://Assets/Ui/check_icon.png" id="2_j1uqv"]
+[ext_resource type="FontFile" uid="uid://dedkpm8srgyrs" path="res://Assets/Fonts/Dosis-Medium.ttf" id="3_evyq4"]
+[ext_resource type="Texture2D" uid="uid://cnxp0bk3gxg54" path="res://Assets/Ui/uncheck_icon.png" id="3_kljy1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8r6dw"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("1_yalya")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+modulate_color = Color(0.462745, 0.462745, 0.462745, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6xtrg"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f7q47"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("1_yalya")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+modulate_color = Color(0.652344, 0.652344, 0.652344, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bd6sk"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("1_yalya")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eisfk"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mkbl7"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("1_yalya")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+modulate_color = Color(0.652344, 0.652344, 0.652344, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ca33l"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("1_yalya")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61qa8"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5vfop"]
+size = Vector2(0, 0)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_6biu8"]
+size = Vector2(0, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kdhqr"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("1_yalya")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+
+[resource]
+default_font = ExtResource("3_evyq4")
+Button/colors/font_color = Color(0.886275, 0.0352941, 0.0352941, 1)
+Button/colors/font_disabled_color = Color(0.53125, 0.0228271, 0.0228271, 1)
+Button/colors/font_focus_color = Color(0.886275, 0.0352941, 0.0352941, 1)
+Button/colors/font_hover_color = Color(0.800781, 0.0312805, 0.0312805, 1)
+Button/colors/font_hover_pressed_color = Color(0.8, 0.0313726, 0.0313726, 1)
+Button/colors/font_outline_color = Color(0.0666667, 0.14902, 0.517647, 1)
+Button/colors/font_pressed_color = Color(0.679688, 0.0265503, 0.0265503, 1)
+Button/constants/outline_size = 3
+Button/font_sizes/font_size = 35
+Button/styles/disabled = SubResource("StyleBoxTexture_8r6dw")
+Button/styles/focus = SubResource("StyleBoxEmpty_6xtrg")
+Button/styles/hover = SubResource("StyleBoxTexture_f7q47")
+Button/styles/normal = SubResource("StyleBoxTexture_bd6sk")
+Button/styles/pressed = SubResource("StyleBoxTexture_8r6dw")
+CheckBox/colors/font_pressed_color = Color(0.886275, 0.0352941, 0.0352941, 1)
+CheckBox/constants/h_separation = 20
+CheckBox/icons/checked = ExtResource("2_j1uqv")
+CheckBox/icons/unchecked = ExtResource("3_kljy1")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_eisfk")
+CheckBox/styles/hover = SubResource("StyleBoxTexture_mkbl7")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxTexture_mkbl7")
+CheckBox/styles/normal = SubResource("StyleBoxTexture_ca33l")
+CheckBox/styles/pressed = SubResource("StyleBoxTexture_ca33l")
+HeaderButton/base_type = &"Button"
+HeaderButton/constants/outline_size = 8
+HeaderButton/font_sizes/font_size = 45
+HeaderButton/fonts/font = ExtResource("2_8u7li")
+HeaderLarge/base_type = &"Label"
+HeaderLarge/constants/outline_size = 15
+HeaderLarge/font_sizes/font_size = 120
+HeaderLarge/fonts/font = ExtResource("2_8u7li")
+HeaderMedium/base_type = &"Label"
+HeaderMedium/constants/outline_size = 8
+HeaderMedium/font_sizes/font_size = 74
+HeaderMedium/fonts/font = ExtResource("2_8u7li")
+HeaderSmall/base_type = &"Label"
+HeaderSmall/constants/outline_size = 6
+HeaderSmall/font_sizes/font_size = 60
+HeaderSmall/fonts/font = ExtResource("2_8u7li")
+Label/colors/font_color = Color(0.886275, 0.0352941, 0.0352941, 1)
+Label/colors/font_outline_color = Color(0.0666667, 0.14902, 0.517647, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 3
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 1
+Label/font_sizes/font_size = 35
+Label/fonts/font = ExtResource("3_evyq4")
+Label/styles/normal = SubResource("StyleBoxEmpty_61qa8")
+NoIcons/base_type = &"CheckBox"
+NoIcons/icons/checked = SubResource("PlaceholderTexture2D_5vfop")
+NoIcons/icons/unchecked = SubResource("PlaceholderTexture2D_6biu8")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_kdhqr")

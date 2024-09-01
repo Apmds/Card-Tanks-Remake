@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://cublk8qch2vxb"]
+
+[ext_resource type="PackedScene" uid="uid://pixq3gvowl2w" path="res://Scenes/tank.tscn" id="1_wd4vs"]
+[ext_resource type="Script" path="res://Scripts/player_tank.gd" id="2_828ff"]
+[ext_resource type="Texture2D" uid="uid://bnhkj84vmses3" path="res://Assets/Tanks/Player/idle.png" id="3_6ppr3"]
+
+[node name="PlayerTank" instance=ExtResource("1_wd4vs")]
+collision_layer = 5
+script = ExtResource("2_828ff")
+
+[node name="Sprite" parent="Rotatable" index="0"]
+texture = ExtResource("3_6ppr3")

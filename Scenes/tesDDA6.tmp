@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://15urfifxv7v6"]
+
+[ext_resource type="Texture2D" uid="uid://cl5n3r0krj4rw" path="res://Assets/World/Background.png" id="1_6kmmi"]
+[ext_resource type="PackedScene" uid="uid://cublk8qch2vxb" path="res://Scenes/player_tank.tscn" id="2_3njjm"]
+[ext_resource type="PackedScene" uid="uid://xi4bq7sq2u7r" path="res://Scenes/ai_tank.tscn" id="3_724c8"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Background" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Background"]
+motion_offset = Vector2(-16, -16)
+motion_mirroring = Vector2(192, 384)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Background/ParallaxLayer"]
+texture = ExtResource("1_6kmmi")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(192, 384)
+texture = ExtResource("1_6kmmi")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(192, 0)
+texture = ExtResource("1_6kmmi")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(0, 384)
+texture = ExtResource("1_6kmmi")
+
+[node name="PlayerTank" parent="." instance=ExtResource("2_3njjm")]
+collision_mask = 1
+
+[node name="Camera" type="Camera2D" parent="PlayerTank"]
+offset = Vector2(0, 64)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+
+[node name="AITank" parent="." instance=ExtResource("3_724c8")]
+position = Vector2(0, -32)
+use_start_position = true
+start_position = Vector2i(0, -1)
+
+[node name="AITank2" parent="." instance=ExtResource("3_724c8")]
+position = Vector2(0, 32)
+use_start_position = true
+start_position = Vector2i(0, 1)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+offset_top = 379.0
+offset_right = 360.0
+offset_bottom = 640.0
