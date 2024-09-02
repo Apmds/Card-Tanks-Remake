@@ -117,6 +117,9 @@ func shoot(crossair : Marker2D) -> void:
 		owner.add_child(bullet_instance)
 
 func explode() -> void:
+	monitoring = false
+	set_deferred("monitorable", false)
+	
 	$Rotatable/Explosion.visible = true
 	$Rotatable/Explosion.play("default")
 	$ExplosionSound.play()
