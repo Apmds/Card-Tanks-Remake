@@ -1,28 +1,46 @@
 class_name Tank extends Area2D
+## The base class for all tanks.
 
 @export_group("Debug vars")
+
+## Debug var. Check to make the tank spawn in the [member start_position].
 @export var use_start_position : bool
+
+## Debug var. The position to start the tank in.
 @export var start_position : Vector2i
+
 
 const bulletScene : PackedScene = preload("res://Scenes/bullet.tscn")
 const shootParticlesScene : PackedScene = preload("res://Scenes/shoot_particles.tscn")
 
-@onready var crossairs = $Rotatable/Crossairs
-@onready var rotating_stuff = $Rotatable
 
+## Node that contains all the crossairs.
+@onready var crossairs : Node2D = $Rotatable/Crossairs
+
+## Node that contains all parts of the tank that can rotate.
+@onready var rotating_stuff : Node2D = $Rotatable
+
+## The directions that the tank can have.
 enum directions {UP, DOWN, LEFT, RIGHT}
 
+## Tank's current direction.
 var direction : directions = directions.RIGHT
-var grid_position = Vector2i.ZERO
 
+## Tank's current position in the grid.
+var grid_position : Vector2i = Vector2i.ZERO
+
+## Emitted when the tank moves.
 signal moved
+## Emitted when the tank is destroyed.
 signal destroyed
 
+## Setter for the grid position. Does not emit the [signal moved] signal.
 func set_grid_position(new_position : Vector2i) -> void:
 	grid_position = new_position
 	position.x = grid_position.x * 32
 	position.y = grid_position.y * 32
 
+## Setter for the direction.
 func set_direction(new_direction : directions) -> void:
 	match new_direction:
 		directions.UP:
@@ -36,6 +54,7 @@ func set_direction(new_direction : directions) -> void:
 	
 	direction = new_direction
 
+## Rotates the tank to the left.
 func rotate_left() -> void:
 	match direction:
 		directions.UP:
@@ -47,6 +66,7 @@ func rotate_left() -> void:
 		directions.RIGHT:
 			set_direction(directions.UP)
 
+## Rotates the tank to the right.
 func rotate_right() -> void:
 	match direction:
 		directions.UP:
@@ -58,6 +78,7 @@ func rotate_right() -> void:
 		directions.RIGHT:
 			set_direction(directions.DOWN)
 
+## Moves the tank a specified number of steps in the direction they facing.
 func move(steps : int = 1) -> void:
 	var new_position = grid_position
 	for i in range(steps):
@@ -73,10 +94,12 @@ func move(steps : int = 1) -> void:
 	set_grid_position(new_position)
 	moved.emit()
 
+## Shoots all the crossairs the tank has.
 func shoot_all() -> void:
 	for crossair in crossairs.get_children():
 		shoot(crossair)
 
+## Shoots a specific crossair of the tank.
 func shoot(crossair : Marker2D) -> void:
 	if crossair == null:
 		return
@@ -116,6 +139,7 @@ func shoot(crossair : Marker2D) -> void:
 	else:
 		owner.add_child(bullet_instance)
 
+## Explodes the tank.
 func explode() -> void:
 	monitoring = false
 	set_deferred("monitorable", false)
