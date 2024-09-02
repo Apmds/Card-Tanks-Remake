@@ -113,7 +113,7 @@ func spawn_tank() -> void:
 	var tank_position_valid = false
 	while !tank_position_valid:
 		var tank_x = randi_range(not_spawn_radius, spawn_radius) * pow(-1, randi_range(0, 1))
-		var tank_y = randi_range(-spawn_radius, -not_spawn_radius) * pow(-1, randi_range(0, 1))
+		var tank_y = randi_range(not_spawn_radius, spawn_radius) * pow(-1, randi_range(0, 1))
 		if randf() < 0.5:
 			tank_x = randi_range(-spawn_radius, spawn_radius)
 		else:
@@ -122,7 +122,7 @@ func spawn_tank() -> void:
 		# Spawn around the player if it exists
 		if player != null:
 			tank_x += player.grid_position.x
-			tank_y += player.grid_position.x
+			tank_y += player.grid_position.y
 
 		tank_instance.set_grid_position(Vector2i(tank_x, tank_y))
 	
@@ -183,6 +183,8 @@ func _on_button_right_pressed():
 
 func _on_player_moved():
 	for tank in tanks.get_children():
+		if abs(tank.grid_position.y - player.grid_position.y) > spawn_radius*1.1:
+			print(abs(tank.grid_position.y - player.grid_position.y) > spawn_radius*1.1)
 		if abs(tank.grid_position.x - player.grid_position.x) > spawn_radius*1.1 or abs(tank.grid_position.y - player.grid_position.y) > spawn_radius*1.1:
 			tank.queue_free()
 
