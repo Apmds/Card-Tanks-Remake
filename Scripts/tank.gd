@@ -138,4 +138,3 @@ func _ready():
 func _on_area_entered(area):
 	if area is Tank:
 		explode()
-		area.explode()
