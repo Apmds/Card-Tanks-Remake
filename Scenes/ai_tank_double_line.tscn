@@ -83,6 +83,7 @@ animations = [{
 }]
 
 [node name="AITankDoubleLine" instance=ExtResource("1_744bx")]
+raycast_to_crossair = {}
 
 [node name="Rotatable_RayCasts#RayCast2D2" type="RayCast2D" parent="." index="1"]
 target_position = Vector2(-100, 0)

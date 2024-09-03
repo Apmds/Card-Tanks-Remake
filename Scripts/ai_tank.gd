@@ -3,6 +3,9 @@ class_name AiTank extends Tank
 @onready var timer : Timer = $Timer
 @onready var raycasts = $Cannons/RayCasts
 
+## Dictionary that assciates a raycasts id with the respective crossair
+@export var raycast_to_crossair : Dictionary
+
 enum modes {
 	LOOK_AROUND,
 	CHASE,
@@ -16,7 +19,7 @@ var attack_time : float = 1
 
 var mode : modes = modes.LOOK_AROUND
 var chase_pos : Vector2i = Vector2i.ZERO
-
+var chase_direction : directions = directions.RIGHT
 
 func set_mode(new_mode : modes):
 	mode = new_mode
@@ -46,6 +49,22 @@ func get_colliding_raycast() -> RayCast2D:
 func raycasts_colliding() -> bool:
 	return get_colliding_raycast() != null
 
+func update_chase_variables() -> void:
+	chase_pos = get_colliding_raycast().get_collider().grid_position
+	
+	# Hacky way of getting the direction to turn the tank
+	var chase_dir_degs = direction_to_degrees(cannons_direction)
+	chase_dir_degs += direction_to_degrees(get_node(raycast_to_crossair[get_colliding_raycast().get_meta("id", 0)]).get_meta("shoot_direction"))
+	match chase_dir_degs % 360:
+		270:
+			chase_direction = directions.UP
+		90:
+			chase_direction = directions.DOWN
+		180:
+			chase_direction = directions.LEFT
+		0:
+			chase_direction = directions.RIGHT
+
 func _ready():
 	super._ready()
 	randomize()
@@ -53,22 +72,28 @@ func _ready():
 
 func _physics_process(_delta):
 	if raycasts_colliding() and mode != modes.ATTACK and mode != modes.DESTROYED:
-		chase_pos = get_colliding_raycast().get_collider().grid_position
+		update_chase_variables()
 		set_mode(modes.ATTACK)
 
 func _on_timer_timeout():
 	match mode:
 		modes.LOOK_AROUND:
-			if randf() < 0.5:
+			var rand : float = randf()
+			if rand < 0.25:
 				rotate_left()
-			else:
+			elif rand < 0.5:
 				rotate_right()
+			elif rand < 0.75:
+				rotate_left(false, true)
+			else:
+				rotate_right(false, true)
 			
 			update_raycasts()
 			if raycasts_colliding():
-				chase_pos = get_colliding_raycast().get_collider().grid_position
+				update_chase_variables()
 				set_mode(modes.ATTACK)
 		modes.CHASE:
+			set_direction(chase_direction)
 			move()
 			
 			update_raycasts()
@@ -79,7 +104,7 @@ func _on_timer_timeout():
 		modes.ATTACK:
 			update_raycasts()
 			if raycasts_colliding():
-				chase_pos = get_colliding_raycast().get_collider().grid_position
+				update_chase_variables()
 				shoot_all()
 			else:
 				set_mode(modes.CHASE)

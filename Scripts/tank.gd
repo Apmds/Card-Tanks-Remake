@@ -41,6 +41,20 @@ signal moved
 ## Emitted when the tank is destroyed.
 signal destroyed
 
+## Returns the rotation in degrees associated to dir.
+func direction_to_degrees(dir : directions) -> int:
+	match dir:
+		directions.UP:
+			return 270
+		directions.DOWN:
+			return 90
+		directions.LEFT:
+			return 180
+		directions.RIGHT:
+			return 0
+		_:
+			return 0
+
 ## Setter for the grid position. Does not emit the [signal moved] signal.
 func set_grid_position(new_position : Vector2i) -> void:
 	grid_position = new_position
@@ -83,50 +97,51 @@ func set_cannons_direction(new_direction : directions) -> void:
 
 ## Rotates the tank to the left.
 func rotate_left(rot_body : bool = true, rot_cannons : bool = true) -> void:
-	match body_direction:
-		directions.UP:
-			if rot_body:
+	if rot_body:
+		match body_direction:
+			directions.UP:
 				set_body_direction(directions.LEFT)
-			if rot_cannons:
-				set_cannons_direction(directions.LEFT)
-		directions.DOWN:
-			if rot_body:
+			directions.DOWN:
 				set_body_direction(directions.RIGHT)
-			if rot_cannons:
-				set_cannons_direction(directions.RIGHT)
-		directions.LEFT:
-			if rot_body:
+			directions.LEFT:
 				set_body_direction(directions.DOWN)
-			if rot_cannons:
-				set_cannons_direction(directions.DOWN)
-		directions.RIGHT:
-			if rot_body:
+			directions.RIGHT:
 				set_body_direction(directions.UP)
-			if rot_cannons:
+	if rot_cannons:
+		match cannons_direction:
+			directions.UP:
+				set_cannons_direction(directions.LEFT)
+			directions.DOWN:
+				set_cannons_direction(directions.RIGHT)
+			directions.LEFT:
+				set_cannons_direction(directions.DOWN)
+			directions.RIGHT:
 				set_cannons_direction(directions.UP)
+	
+	
 
 ## Rotates the tank to the right.
 func rotate_right(rot_body : bool = true, rot_cannons : bool = true) -> void:
-	match body_direction:
-		directions.UP:
-			if rot_body:
+	if rot_body:
+		match body_direction:
+			directions.UP:
 				set_body_direction(directions.RIGHT)
-			if rot_cannons:
-				set_cannons_direction(directions.RIGHT)
-		directions.DOWN:
-			if rot_body:
+			directions.DOWN:
 				set_body_direction(directions.LEFT)
-			if rot_cannons:
-				set_cannons_direction(directions.LEFT)
-		directions.LEFT:
-			if rot_body:
+			directions.LEFT:
 				set_body_direction(directions.UP)
-			if rot_cannons:
-				set_cannons_direction(directions.UP)
-		directions.RIGHT:
-			if rot_body:
+			directions.RIGHT:
 				set_body_direction(directions.DOWN)
-			if rot_cannons:
+	
+	if rot_cannons:
+		match cannons_direction:
+			directions.UP:
+				set_cannons_direction(directions.RIGHT)
+			directions.DOWN:
+				set_cannons_direction(directions.LEFT)
+			directions.LEFT:
+				set_cannons_direction(directions.UP)
+			directions.RIGHT:
 				set_cannons_direction(directions.DOWN)
 
 ## Moves the tank a specified number of steps in the direction they facing.
@@ -164,7 +179,7 @@ func shoot(crossair : Marker2D) -> void:
 	shoot_particles.emitting = true
 	crossair.add_child(shoot_particles)
 	
-	match body_direction:
+	match cannons_direction:
 		directions.UP:
 			bullet_instance.rotation_degrees = -90
 		directions.DOWN:

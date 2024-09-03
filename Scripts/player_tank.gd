@@ -1,4 +1,6 @@
 class_name PlayerTank extends Tank
+## The tank used by the player.
+
 
 #func _physics_process(delta):
 #	if Input.is_action_just_pressed("button_left"):
