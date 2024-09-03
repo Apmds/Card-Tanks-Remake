@@ -140,12 +140,13 @@ vertical_alignment = 1
 
 [node name="HighScore" type="Label" parent="MainMenu"]
 layout_mode = 0
-offset_left = 159.0
-offset_top = 993.0
-offset_right = 383.0
-offset_bottom = 1100.0
+offset_left = 160.0
+offset_top = 962.0
+offset_right = 384.0
+offset_bottom = 1069.0
 text = "High score: ###"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Settings" type="Control" parent="."]
