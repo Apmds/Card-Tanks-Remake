@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://pixq3gvowl2w"]
+[gd_scene load_steps=19 format=3 uid="uid://pixq3gvowl2w"]
 
 [ext_resource type="Script" path="res://Scripts/tank.gd" id="1_n8ljb"]
-[ext_resource type="Texture2D" uid="uid://dlpeg1h1h2xpw" path="res://Assets/Tanks/Basic/idle.png" id="2_e4i3y"]
+[ext_resource type="Texture2D" uid="uid://b60i6sa0bxoq1" path="res://Assets/Tanks/Basic/body_idle.png" id="2_d6nhp"]
 [ext_resource type="Texture2D" uid="uid://opkp2fg0eql7" path="res://Assets/Tanks/Common/Explosion.png" id="3_rj6b0"]
+[ext_resource type="Texture2D" uid="uid://bgrtyub053ib6" path="res://Assets/Tanks/Basic/cannon_idle.png" id="3_wtjl1"]
 [ext_resource type="AudioStream" uid="uid://clckojgirhl32" path="res://Assets/Sound/shoot.wav" id="4_nbr1b"]
 [ext_resource type="AudioStream" uid="uid://p3t6wbw2v5n4" path="res://Assets/Sound/explosion.wav" id="5_guebn"]
 
@@ -94,21 +95,25 @@ script = ExtResource("1_n8ljb")
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_i5enb")
 
-[node name="Rotatable" type="Node2D" parent="."]
+[node name="Body" type="Node2D" parent="."]
 
-[node name="Sprite" type="Sprite2D" parent="Rotatable"]
-texture = ExtResource("2_e4i3y")
-offset = Vector2(1, 0)
+[node name="BodySprite" type="Sprite2D" parent="Body"]
+texture = ExtResource("2_d6nhp")
 
-[node name="Explosion" type="AnimatedSprite2D" parent="Rotatable"]
-visible = false
-sprite_frames = SubResource("SpriteFrames_ggvah")
+[node name="Cannons" type="Node2D" parent="."]
 
-[node name="Crossairs" type="Node2D" parent="Rotatable"]
+[node name="CannonsSprite" type="Sprite2D" parent="Cannons"]
+texture = ExtResource("3_wtjl1")
 
-[node name="Marker2D" type="Marker2D" parent="Rotatable/Crossairs"]
+[node name="Crossairs" type="Node2D" parent="Cannons"]
+
+[node name="Marker2D" type="Marker2D" parent="Cannons/Crossairs"]
 position = Vector2(20, 0)
 metadata/shoot_direction = 3
+
+[node name="Explosion" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_ggvah")
 
 [node name="ShootSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_nbr1b")

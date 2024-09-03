@@ -15,18 +15,25 @@ const shootParticlesScene : PackedScene = preload("res://Scenes/shoot_particles.
 
 
 ## Node that contains all the crossairs.
-@onready var crossairs : Node2D = $Rotatable/Crossairs
+@onready var crossairs : Node2D = $Cannons/Crossairs
+## Sprite of the explosion
+@onready var explosion : AnimatedSprite2D = $Explosion
 
-## Node that contains all parts of the tank that can rotate.
-@onready var rotating_stuff : Node2D = $Rotatable
+## Body node of the tank.
+@onready var body : Node2D = $Body
+## Node with all the cannons and anyhting that goes with them.
+@onready var cannons : Node2D = $Cannons
 
 ## The directions that the tank can have.
 enum directions {UP, DOWN, LEFT, RIGHT}
 
-## Tank's current direction.
-var direction : directions = directions.RIGHT
+## Tanks body current direction.
+var body_direction : directions = directions.RIGHT
 
-## Tank's current position in the grid.
+## Tanks cannons current direction.
+var cannons_direction : directions = directions.RIGHT
+
+## Tanks current position in the grid.
 var grid_position : Vector2i = Vector2i.ZERO
 
 ## Emitted when the tank moves.
@@ -40,49 +47,93 @@ func set_grid_position(new_position : Vector2i) -> void:
 	position.x = grid_position.x * 32
 	position.y = grid_position.y * 32
 
-## Setter for the direction.
-func set_direction(new_direction : directions) -> void:
+## Setter for both of the tanks directions.
+func set_direction(new_direction):
+	set_body_direction(new_direction)
+	set_cannons_direction(new_direction)
+
+## Setter for the body direction.
+func set_body_direction(new_direction : directions) -> void:
 	match new_direction:
 		directions.UP:
-			rotating_stuff.rotation_degrees = -90
+			body.rotation_degrees = -90
 		directions.DOWN:
-			rotating_stuff.rotation_degrees = 90
+			body.rotation_degrees = 90
 		directions.LEFT:
-			rotating_stuff.rotation_degrees = 180
+			body.rotation_degrees = 180
 		directions.RIGHT:
-			rotating_stuff.rotation_degrees = 0
+			body.rotation_degrees = 0
 	
-	direction = new_direction
+	body_direction = new_direction
+
+## Setter for the cannons direction.
+func set_cannons_direction(new_direction : directions) -> void:
+	match new_direction:
+		directions.UP:
+			cannons.rotation_degrees = -90
+		directions.DOWN:
+			cannons.rotation_degrees = 90
+		directions.LEFT:
+			cannons.rotation_degrees = 180
+		directions.RIGHT:
+			cannons.rotation_degrees = 0
+	
+	cannons_direction = new_direction
+
 
 ## Rotates the tank to the left.
-func rotate_left() -> void:
-	match direction:
+func rotate_left(rot_body : bool = true, rot_cannons : bool = true) -> void:
+	match body_direction:
 		directions.UP:
-			set_direction(directions.LEFT)
+			if rot_body:
+				set_body_direction(directions.LEFT)
+			if rot_cannons:
+				set_cannons_direction(directions.LEFT)
 		directions.DOWN:
-			set_direction(directions.RIGHT)
+			if rot_body:
+				set_body_direction(directions.RIGHT)
+			if rot_cannons:
+				set_cannons_direction(directions.RIGHT)
 		directions.LEFT:
-			set_direction(directions.DOWN)
+			if rot_body:
+				set_body_direction(directions.DOWN)
+			if rot_cannons:
+				set_cannons_direction(directions.DOWN)
 		directions.RIGHT:
-			set_direction(directions.UP)
+			if rot_body:
+				set_body_direction(directions.UP)
+			if rot_cannons:
+				set_cannons_direction(directions.UP)
 
 ## Rotates the tank to the right.
-func rotate_right() -> void:
-	match direction:
+func rotate_right(rot_body : bool = true, rot_cannons : bool = true) -> void:
+	match body_direction:
 		directions.UP:
-			set_direction(directions.RIGHT)
+			if rot_body:
+				set_body_direction(directions.RIGHT)
+			if rot_cannons:
+				set_cannons_direction(directions.RIGHT)
 		directions.DOWN:
-			set_direction(directions.LEFT)
+			if rot_body:
+				set_body_direction(directions.LEFT)
+			if rot_cannons:
+				set_cannons_direction(directions.LEFT)
 		directions.LEFT:
-			set_direction(directions.UP)
+			if rot_body:
+				set_body_direction(directions.UP)
+			if rot_cannons:
+				set_cannons_direction(directions.UP)
 		directions.RIGHT:
-			set_direction(directions.DOWN)
+			if rot_body:
+				set_body_direction(directions.DOWN)
+			if rot_cannons:
+				set_cannons_direction(directions.DOWN)
 
 ## Moves the tank a specified number of steps in the direction they facing.
 func move(steps : int = 1) -> void:
 	var new_position = grid_position
 	for i in range(steps):
-		match direction:
+		match body_direction:
 			directions.UP:
 				new_position.y -= 1
 			directions.DOWN:
@@ -113,7 +164,7 @@ func shoot(crossair : Marker2D) -> void:
 	shoot_particles.emitting = true
 	crossair.add_child(shoot_particles)
 	
-	match direction:
+	match body_direction:
 		directions.UP:
 			bullet_instance.rotation_degrees = -90
 		directions.DOWN:
@@ -141,14 +192,14 @@ func shoot(crossair : Marker2D) -> void:
 
 ## Explodes the tank.
 func explode() -> void:
-	monitoring = false
+	set_deferred("monitoring", false)
 	set_deferred("monitorable", false)
 	
-	$Rotatable/Explosion.visible = true
-	$Rotatable/Explosion.play("default")
+	explosion.visible = true
+	explosion.play("default")
 	$ExplosionSound.play()
 	destroyed.emit()
-	await $Rotatable/Explosion.animation_finished
+	await explosion.animation_finished
 	queue_free()
 
 func _ready():
@@ -159,7 +210,7 @@ func _ready():
 		if crossair.get_meta("shoot_direction", -1) == -1:
 			crossair.set_meta("shoot_direction", directions.RIGHT)
 	
-	set_direction(direction)
+	set_direction(body_direction)
 
 
 func _on_area_entered(area):

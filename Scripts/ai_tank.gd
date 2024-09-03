@@ -1,7 +1,7 @@
 class_name AiTank extends Tank
 
 @onready var timer : Timer = $Timer
-@onready var raycasts = $Rotatable/RayCasts
+@onready var raycasts = $Cannons/RayCasts
 
 enum modes {
 	LOOK_AROUND,

@@ -6,14 +6,14 @@
 [node name="AITank" instance=ExtResource("1_cxs54")]
 script = ExtResource("2_twc6m")
 
-[node name="RayCasts" type="Node2D" parent="Rotatable" index="0"]
+[node name="Timer" type="Timer" parent="." index="2"]
 
-[node name="RayCast2D" type="RayCast2D" parent="Rotatable/RayCasts" index="0"]
+[node name="RayCasts" type="Node2D" parent="Cannons" index="1"]
+
+[node name="RayCast2D" type="RayCast2D" parent="Cannons/RayCasts" index="0"]
 target_position = Vector2(100, 0)
 collision_mask = 4
 collide_with_areas = true
-
-[node name="Timer" type="Timer" parent="." index="2"]
 
 [connection signal="destroyed" from="." to="." method="_on_destroyed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
