@@ -1,111 +1,27 @@
-[gd_scene load_steps=15 format=3 uid="uid://be52ae31fkwtq"]
+[gd_scene load_steps=4 format=3 uid="uid://be52ae31fkwtq"]
 
 [ext_resource type="PackedScene" uid="uid://xi4bq7sq2u7r" path="res://Scenes/ai_tank.tscn" id="1_744bx"]
-[ext_resource type="Texture2D" uid="uid://pmkc5nuj1wep" path="res://Assets/Tanks/Double_Line/idle.png" id="2_4hx2a"]
-[ext_resource type="Texture2D" uid="uid://opkp2fg0eql7" path="res://Assets/Tanks/Common/Explosion.png" id="3_h0cdy"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ol0e4"]
-atlas = ExtResource("3_h0cdy")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tkv0v"]
-atlas = ExtResource("3_h0cdy")
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j4g3q"]
-atlas = ExtResource("3_h0cdy")
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lo4wj"]
-atlas = ExtResource("3_h0cdy")
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_syffs"]
-atlas = ExtResource("3_h0cdy")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kn2bx"]
-atlas = ExtResource("3_h0cdy")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kognt"]
-atlas = ExtResource("3_h0cdy")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_arann"]
-atlas = ExtResource("3_h0cdy")
-region = Rect2(224, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wd5wb"]
-atlas = ExtResource("3_h0cdy")
-region = Rect2(256, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5ktap"]
-atlas = ExtResource("3_h0cdy")
-region = Rect2(288, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ggvah"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ol0e4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tkv0v")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j4g3q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lo4wj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_syffs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kn2bx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kognt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_arann")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wd5wb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5ktap")
-}],
-"loop": false,
-"name": &"default",
-"speed": 25.0
-}]
+[ext_resource type="Texture2D" uid="uid://c6atsspuuo7il" path="res://Assets/Tanks/Double_Line/body_idle.png" id="2_t88qf"]
+[ext_resource type="Texture2D" uid="uid://b6stu2vemse5c" path="res://Assets/Tanks/Double_Line/cannon_idle.png" id="3_4jo31"]
 
 [node name="AITankDoubleLine" instance=ExtResource("1_744bx")]
-raycast_to_crossair = {}
+raycast_to_crossair = {
+0: NodePath("Cannons/Crossairs/Marker2D"),
+1: NodePath("Cannons/Crossairs/Marker2D2")
+}
 
-[node name="Rotatable_RayCasts#RayCast2D2" type="RayCast2D" parent="." index="1"]
+[node name="BodySprite" parent="Body" index="0"]
+texture = ExtResource("2_t88qf")
+
+[node name="CannonsSprite" parent="Cannons" index="0"]
+texture = ExtResource("3_4jo31")
+
+[node name="RayCast2D2" type="RayCast2D" parent="Cannons/RayCasts" index="1"]
 target_position = Vector2(-100, 0)
 collision_mask = 4
 collide_with_areas = true
+metadata/id = 1
 
-[node name="Rotatable" type="Node2D" parent="." index="2"]
-
-[node name="Sprite" type="Sprite2D" parent="Rotatable" index="0"]
-texture = ExtResource("2_4hx2a")
-offset = Vector2(1, 0)
-
-[node name="Explosion" type="AnimatedSprite2D" parent="Rotatable" index="1"]
-visible = false
-sprite_frames = SubResource("SpriteFrames_ggvah")
-
-[node name="Crossairs" type="Node2D" parent="Rotatable" index="2"]
-
-[node name="Marker2D" type="Marker2D" parent="Rotatable/Crossairs" index="0"]
-position = Vector2(20, 0)
-metadata/shoot_direction = 3
-
-[node name="Marker2D2" type="Marker2D" parent="Rotatable/Crossairs" index="1"]
-position = Vector2(-18, 0)
+[node name="Marker2D2" type="Marker2D" parent="Cannons/Crossairs" index="1"]
+position = Vector2(-20, 0)
 metadata/shoot_direction = 2
