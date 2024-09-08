@@ -36,6 +36,7 @@ var score : int = 0 :
 @onready var tanks : Node2D = $Tanks
 @onready var score_label : Label = $HUD/Up/Score
 @onready var camera : GameCamera = $Camera
+@onready var pause_button : TextureButton = $HUD/Up/PauseButton
 
 const move_button_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/Move.png")
 const move_button_hover_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/MoveHover.png")
@@ -188,6 +189,11 @@ func _on_player_moved():
 			tank.queue_free()
 
 func _on_player_destroyed():
+	button_left.disabled = true
+	button_center.disabled = true
+	button_right.disabled = true
+	pause_button.disabled = true
+	
 	camera.set_new_zoom(Vector2.ONE * 3)
 	Global.save_game_data()
 	await get_tree().create_timer(2).timeout
