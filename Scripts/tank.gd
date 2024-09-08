@@ -207,8 +207,10 @@ func shoot(crossair : Marker2D) -> void:
 
 ## Explodes the tank.
 func explode() -> void:
-	set_deferred("monitoring", false)
-	set_deferred("monitorable", false)
+	# Remove comments and comment next line to make crashing into an exploding tank kill the player
+	#set_deferred("monitoring", false)
+	#set_deferred("monitorable", false)
+	$Collision.set_deferred("disabled", true)
 	
 	explosion.visible = true
 	explosion.play("default")
