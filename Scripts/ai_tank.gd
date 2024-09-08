@@ -1,11 +1,15 @@
 class_name AiTank extends Tank
+## Base class for every tank with "AI".
 
+## Timer for everything.
 @onready var timer : Timer = $Timer
-@onready var raycasts = $Cannons/RayCasts
+## Node with all the raycasts.
+@onready var raycasts : Node2D = $Cannons/RayCasts
 
-## Dictionary that assciates a raycasts id with the respective crossair
+## Dictionary that assciates a raycasts id with the respective crossair.
 @export var raycast_to_crossair : Dictionary
 
+## All the modes the tank can be in.
 enum modes {
 	LOOK_AROUND,
 	CHASE,
@@ -13,15 +17,22 @@ enum modes {
 	DESTROYED,
 }
 
-var movement_time : float = 2
-var look_time : float = 3
-var attack_time : float = 1
+## Time between moving (in seconds).
+const movement_time : float = 2
+## Time between looking around (in seconds).
+const look_time : float = 3
+## Time between attacks (in seconds).
+const attack_time : float = 1
 
+## Tanks current mode.
 var mode : modes = modes.LOOK_AROUND
+## Grid position of the tank this is chasing.
 var chase_pos : Vector2i = Vector2i.ZERO
+## Direction to rotate the body to chase the tank.
 var chase_direction : directions = directions.RIGHT
 
-func set_mode(new_mode : modes):
+## Setter for the [member mode].
+func set_mode(new_mode : modes) -> void:
 	mode = new_mode
 	timer.stop()
 	match new_mode:
@@ -36,19 +47,23 @@ func set_mode(new_mode : modes):
 	
 	timer.start()
 
+## Force updates all of the raycasts.
 func update_raycasts() -> void:
 	for raycast in raycasts.get_children():
 		raycast.force_raycast_update()
 
+## Returns the RayCast2D that is colliding or null if none are colliding.
 func get_colliding_raycast() -> RayCast2D:
 	for raycast in raycasts.get_children():
 		if raycast.is_colliding():
 			return raycast
 	return null
 
+## Returns whether or not there is a raycast colliding.
 func raycasts_colliding() -> bool:
 	return get_colliding_raycast() != null
 
+## Updates [member grid_pos] and [member chase_direction].
 func update_chase_variables() -> void:
 	chase_pos = get_colliding_raycast().get_collider().grid_position
 	

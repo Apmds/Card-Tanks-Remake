@@ -182,6 +182,7 @@ func _on_button_right_pressed():
 
 
 func _on_player_moved():
+	# Delete tanks that are too far away from the player
 	for tank in tanks.get_children():
 		if abs(tank.grid_position.x - player.grid_position.x) > spawn_radius*1.1 or abs(tank.grid_position.y - player.grid_position.y) > spawn_radius*1.1:
 			tank.queue_free()
