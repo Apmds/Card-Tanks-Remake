@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://leo27chn0hp1"
-path="res://.godot/imported/TurnLeftHover.png-c8298732495713b65529085b4af24bc7.ctex"
+uid="uid://cktroc4iwgrgq"
+path="res://.godot/imported/powerBackground.png-4420af47047bb4fcd7c8d4efc6431aeb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/Cards/TurnLeftHover.png"
-dest_files=["res://.godot/imported/TurnLeftHover.png-c8298732495713b65529085b4af24bc7.ctex"]
+source_file="res://Assets/Powers/powerBackground.png"
+dest_files=["res://.godot/imported/powerBackground.png-4420af47047bb4fcd7c8d4efc6431aeb.ctex"]
 
 [params]
 

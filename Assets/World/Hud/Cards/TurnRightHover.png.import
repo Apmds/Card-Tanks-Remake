@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6uauc54jq3mk"
-path="res://.godot/imported/PauseButtonHover.png-8c061b7fea30003ae4af52e4091a481d.ctex"
+uid="uid://cgrh2iafhoy5g"
+path="res://.godot/imported/TurnRightHover.png-27b527e935ae73bda0cddedeb090a230.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/PauseButtonHover.png"
-dest_files=["res://.godot/imported/PauseButtonHover.png-8c061b7fea30003ae4af52e4091a481d.ctex"]
+source_file="res://Assets/World/Hud/Cards/TurnRightHover.png"
+dest_files=["res://.godot/imported/TurnRightHover.png-27b527e935ae73bda0cddedeb090a230.ctex"]
 
 [params]
 

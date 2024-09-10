@@ -7,6 +7,13 @@ enum gameModes {
 	CHAOS_MODE
 }
 
+enum powers {
+	DOUBLE_POINTS,
+	ARMOR,
+	ADD_CANNON,
+	ZOOM_OUT
+}
+
 # Default values
 var high_scores : Array = [0, 0, 0, 0]
 var current_game_mode : int = gameModes.CLASSIC

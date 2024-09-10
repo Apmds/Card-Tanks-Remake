@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwyujvtiga1w8"
-path="res://.godot/imported/TurnRight.png-ba1a616f9daa96ca726d7fa2fcd84ba8.ctex"
+uid="uid://cds8pkyxmboti"
+path="res://.godot/imported/addCannon.png-3ac4c69d92c8c94d44f9ad215d421cf7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/Cards/TurnRight.png"
-dest_files=["res://.godot/imported/TurnRight.png-ba1a616f9daa96ca726d7fa2fcd84ba8.ctex"]
+source_file="res://Assets/Powers/Icons/addCannon.png"
+dest_files=["res://.godot/imported/addCannon.png-3ac4c69d92c8c94d44f9ad215d421cf7.ctex"]
 
 [params]
 

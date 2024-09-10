@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://blttbhycnkk5f"]
+
+[ext_resource type="Script" path="res://Scripts/power.gd" id="1_e05kd"]
+[ext_resource type="Texture2D" uid="uid://cktroc4iwgrgq" path="res://Assets/Powers/powerBackground.png" id="1_iveiy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hy8t3"]
+size = Vector2(32, 32)
+
+[node name="Power" type="Area2D"]
+collision_layer = 8
+collision_mask = 4
+script = ExtResource("1_e05kd")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hy8t3")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_iveiy")
+
+[node name="Icon" type="Sprite2D" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

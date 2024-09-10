@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rmhuw5wl3tik"
-path="res://.godot/imported/TurnRightPressed.png-561d370bc11ac761761432060a1d30dc.ctex"
+uid="uid://bwx5vt38pc2ud"
+path="res://.godot/imported/doublePoints.png-0aec475b68eea5a982097f2e948670d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/Cards/TurnRightPressed.png"
-dest_files=["res://.godot/imported/TurnRightPressed.png-561d370bc11ac761761432060a1d30dc.ctex"]
+source_file="res://Assets/Powers/Icons/doublePoints.png"
+dest_files=["res://.godot/imported/doublePoints.png-0aec475b68eea5a982097f2e948670d4.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkmb1yrcth2t5"
-path="res://.godot/imported/Move.png-bdc0d876939d2ecbf714171ccf1822a6.ctex"
+uid="uid://bbdqchr2jrbkq"
+path="res://.godot/imported/TurnLeftPressed.png-d60920477fc3eb231dea4a1bd1280d34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/Cards/Move.png"
-dest_files=["res://.godot/imported/Move.png-bdc0d876939d2ecbf714171ccf1822a6.ctex"]
+source_file="res://Assets/World/Hud/Cards/TurnLeftPressed.png"
+dest_files=["res://.godot/imported/TurnLeftPressed.png-d60920477fc3eb231dea4a1bd1280d34.ctex"]
 
 [params]
 

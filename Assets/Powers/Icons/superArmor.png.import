@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgrh2iafhoy5g"
-path="res://.godot/imported/TurnRightHover.png-69a2abb61788bebae26d73c4f8b60423.ctex"
+uid="uid://djkms2tbk7wwr"
+path="res://.godot/imported/superArmor.png-2ca6a5d5d1e642ddca2003865b8b28f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/Cards/TurnRightHover.png"
-dest_files=["res://.godot/imported/TurnRightHover.png-69a2abb61788bebae26d73c4f8b60423.ctex"]
+source_file="res://Assets/Powers/Icons/superArmor.png"
+dest_files=["res://.godot/imported/superArmor.png-2ca6a5d5d1e642ddca2003865b8b28f8.ctex"]
 
 [params]
 

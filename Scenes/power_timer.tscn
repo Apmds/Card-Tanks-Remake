@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b4n4msfe32p3q"]
+
+[ext_resource type="Texture2D" uid="uid://qavva6tyo4du" path="res://Assets/World/Hud/PowerTimerBackground.png" id="1_wttre"]
+[ext_resource type="Texture2D" uid="uid://dcqlc0p1srfmu" path="res://Assets/World/Hud/PowerTimerProgress.png" id="2_37h8c"]
+[ext_resource type="Script" path="res://Scripts/power_timer.gd" id="3_ebn5g"]
+
+[node name="powerTimer" type="TextureProgressBar"]
+offset_right = 32.0
+offset_bottom = 32.0
+value = 100.0
+fill_mode = 4
+texture_under = ExtResource("1_wttre")
+texture_progress = ExtResource("2_37h8c")
+script = ExtResource("3_ebn5g")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

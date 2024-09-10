@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6357eip28iu7"
-path="res://.godot/imported/MoveHover.png-246c2b6b6f23b17bae81b53f9fa570a1.ctex"
+path="res://.godot/imported/MoveHover.png-2d86a56db8bb9f1fbf8b13936d371e53.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/Cards/MoveHover.png"
-dest_files=["res://.godot/imported/MoveHover.png-246c2b6b6f23b17bae81b53f9fa570a1.ctex"]
+source_file="res://Assets/World/Hud/Cards/MoveHover.png"
+dest_files=["res://.godot/imported/MoveHover.png-2d86a56db8bb9f1fbf8b13936d371e53.ctex"]
 
 [params]
 

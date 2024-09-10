@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buj6cbtjboslu"
-path="res://.godot/imported/ShootHover.png-020f20bbdeaa70749f6625e8cdf02faf.ctex"
+uid="uid://rmhuw5wl3tik"
+path="res://.godot/imported/TurnRightPressed.png-6765ae951b8b5076193a8388efca9dc2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/Cards/ShootHover.png"
-dest_files=["res://.godot/imported/ShootHover.png-020f20bbdeaa70749f6625e8cdf02faf.ctex"]
+source_file="res://Assets/World/Hud/Cards/TurnRightPressed.png"
+dest_files=["res://.godot/imported/TurnRightPressed.png-6765ae951b8b5076193a8388efca9dc2.ctex"]
 
 [params]
 

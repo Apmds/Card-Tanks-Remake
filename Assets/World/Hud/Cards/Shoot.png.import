@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g0y7tir72s5r"
-path="res://.godot/imported/PauseButtonPressed.png-3d0a178cb364155d87d839138d6f4831.ctex"
+uid="uid://vqlgi6s6h8yh"
+path="res://.godot/imported/Shoot.png-596a20f457d9ee922c028f24787e7ca8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/PauseButtonPressed.png"
-dest_files=["res://.godot/imported/PauseButtonPressed.png-3d0a178cb364155d87d839138d6f4831.ctex"]
+source_file="res://Assets/World/Hud/Cards/Shoot.png"
+dest_files=["res://.godot/imported/Shoot.png-596a20f457d9ee922c028f24787e7ca8.ctex"]
 
 [params]
 

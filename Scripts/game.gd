@@ -24,6 +24,9 @@ class_name Game extends Node2D
 ## Array of tank scenes to spawn.
 var spawnable_tanks : Array[PackedScene] = []
 
+## Whether or not powers spawn or not
+var spawn_powers : bool = false
+
 ## The current score.
 var score : int = 0 :
 	set(new_score):
@@ -34,25 +37,26 @@ var score : int = 0 :
 
 
 @onready var tanks : Node2D = $Tanks
+@onready var powers : Node2D = $Powers
 @onready var score_label : Label = $HUD/Up/Score
 @onready var camera : GameCamera = $Camera
 @onready var pause_button : TextureButton = $HUD/Up/PauseButton
 
-const move_button_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/Move.png")
-const move_button_hover_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/MoveHover.png")
-const move_button_pressed_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/MovePressed.png")
+const move_button_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/Move.png")
+const move_button_hover_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/MoveHover.png")
+const move_button_pressed_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/MovePressed.png")
 
-const turn_left_button_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/TurnLeft.png")
-const turn_left_button_hover_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/TurnLeftHover.png")
-const turn_left_button_pressed_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/TurnLeftPressed.png")
+const turn_left_button_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/TurnLeft.png")
+const turn_left_button_hover_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/TurnLeftHover.png")
+const turn_left_button_pressed_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/TurnLeftPressed.png")
 
-const turn_right_button_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/TurnRight.png")
-const turn_right_button_hover_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/TurnRightHover.png")
-const turn_right_button_pressed_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/TurnRightPressed.png")
+const turn_right_button_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/TurnRight.png")
+const turn_right_button_hover_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/TurnRightHover.png")
+const turn_right_button_pressed_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/TurnRightPressed.png")
 
-const shoot_button_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/Shoot.png")
-const shoot_button_hover_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/ShootHover.png")
-const shoot_button_pressed_texture : CompressedTexture2D = preload("res://Assets/Hud/Cards/ShootPressed.png")
+const shoot_button_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/Shoot.png")
+const shoot_button_hover_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/ShootHover.png")
+const shoot_button_pressed_texture : CompressedTexture2D = preload("res://Assets/World/Hud/Cards/ShootPressed.png")
 
 enum actions {
 	MOVE, SHOOT, TURN_LEFT, TURN_RIGHT
@@ -102,7 +106,7 @@ func execute_button_action(button : TextureButton) -> void:
 ## Spawns a random tank from the array of spawnable tanks if any exist.
 func spawn_tank() -> void:
 	# Don't spawn if tank limit has been reached or there is no more space for a new tank
-	if tanks.get_child_count() >= max_tanks or tanks.get_child_count() >= pow(2*spawn_radius+1, 2) - pow(2*(not_spawn_radius-1)+1, 2):
+	if tanks.get_child_count() >= max_tanks or tanks.get_child_count() + powers.get_child_count() >= pow(2*spawn_radius+1, 2) - pow(2*(not_spawn_radius-1)+1, 2):
 		return
 
 	var tank : PackedScene = spawnable_tanks.pick_random()
@@ -133,10 +137,18 @@ func spawn_tank() -> void:
 			if t.grid_position == tank_instance.grid_position:
 				tank_position_valid = false
 				break
+		for p : Power in powers.get_children():
+			if p.grid_position == tank_instance.grid_position:
+				tank_position_valid = false
+				break
 	
 	tanks.add_child(tank_instance)
 	tank_instance.owner = self
 	tank_instance.destroyed.connect(_on_tank_destroyed)
+
+## Spawns one power into the world.
+func spawn_power():
+	pass
 
 func _ready():
 	score = 0
@@ -149,6 +161,9 @@ func _ready():
 			spawnable_tanks.append(load("res://Scenes/ai_tank.tscn"))
 			spawnable_tanks.append(load("res://Scenes/ai_tank_double_line.tscn"))
 			spawnable_tanks.append(load("res://Scenes/ai_tank_double_l.tscn"))
+		Global.gameModes.POWER_MANIA:
+			spawnable_tanks.append(load("res://Scenes/ai_tank.tscn"))
+			spawn_powers = true
 	
 	if button_left != null:
 		button_left.connect("pressed", _on_button_left_pressed)
@@ -218,6 +233,9 @@ func _on_main_menu_button_pressed():
 
 func _on_spawn_timer_timeout():
 	spawn_tank()
+	
+	if spawn_powers:
+		spawn_power()
 
 
 func _notification(what):

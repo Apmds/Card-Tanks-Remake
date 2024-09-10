@@ -82,8 +82,6 @@ following = NodePath("../PlayerTank")
 
 [node name="Tanks" type="Node2D" parent="."]
 
-[node name="Powers" type="Node2D" parent="."]
-
 [node name="PlayerTank" parent="." instance=ExtResource("4_rp1im")]
 collision_mask = 1
 
@@ -162,15 +160,6 @@ texture_normal = ExtResource("6_nmjdf")
 texture_pressed = ExtResource("8_4x014")
 texture_hover = ExtResource("9_twyd1")
 texture_disabled = ExtResource("8_4x014")
-
-[node name="powerTimers" type="HBoxContainer" parent="HUD"]
-offset_left = 9.0
-offset_top = 267.0
-offset_right = 256.0
-offset_bottom = 307.0
-scale = Vector2(2, 2)
-theme_override_constants/separation = 15
-metadata/_edit_group_ = true
 
 [node name="PauseScreen" type="CanvasLayer" parent="."]
 process_mode = 3

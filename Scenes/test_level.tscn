@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/game.gd" id="1_dli85"]
 [ext_resource type="PackedScene" uid="uid://cublk8qch2vxb" path="res://Scenes/player_tank.tscn" id="2_3njjm"]
 [ext_resource type="PackedScene" uid="uid://xi4bq7sq2u7r" path="res://Scenes/ai_tank.tscn" id="3_724c8"]
-[ext_resource type="Texture2D" uid="uid://bkmb1yrcth2t5" path="res://Assets/Hud/Cards/Move.png" id="4_j2nxs"]
+[ext_resource type="Texture2D" uid="uid://bkmb1yrcth2t5" path="res://Assets/World/Hud/Cards/Move.png" id="4_j2nxs"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="4_vpujb"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_d7pg5"]

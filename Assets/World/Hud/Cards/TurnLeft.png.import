@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vqlgi6s6h8yh"
-path="res://.godot/imported/Shoot.png-5f72b04d987c4f54058ec859ebadad26.ctex"
+uid="uid://crhlidmyly1ci"
+path="res://.godot/imported/TurnLeft.png-d34b138b6d372a43644765babbb5c08f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/Cards/Shoot.png"
-dest_files=["res://.godot/imported/Shoot.png-5f72b04d987c4f54058ec859ebadad26.ctex"]
+source_file="res://Assets/World/Hud/Cards/TurnLeft.png"
+dest_files=["res://.godot/imported/TurnLeft.png-d34b138b6d372a43644765babbb5c08f.ctex"]
 
 [params]
 

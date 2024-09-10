@@ -61,6 +61,7 @@ pause={
 2d_physics/layer_1="Tank"
 2d_physics/layer_2="Bullet"
 2d_physics/layer_3="Player"
+2d_physics/layer_4="Power"
 2d_physics/size/viewport_height=640
 2d_physics/size/viewport_width=360
 2d_physics/stretch/mode="viewport"

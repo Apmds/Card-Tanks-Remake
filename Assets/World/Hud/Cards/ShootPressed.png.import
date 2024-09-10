@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dikp6orwm75wa"
-path="res://.godot/imported/HudBackground.png-3fc4e55108dbe37147b6fbde7a40e345.ctex"
+uid="uid://hpvveg0yuiiv"
+path="res://.godot/imported/ShootPressed.png-5ccac7d618aa1201006abdc05fcff84a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/HudBackground.png"
-dest_files=["res://.godot/imported/HudBackground.png-3fc4e55108dbe37147b6fbde7a40e345.ctex"]
+source_file="res://Assets/World/Hud/Cards/ShootPressed.png"
+dest_files=["res://.godot/imported/ShootPressed.png-5ccac7d618aa1201006abdc05fcff84a.ctex"]
 
 [params]
 

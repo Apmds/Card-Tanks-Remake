@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgs8voxmudbme"
-path="res://.godot/imported/PauseButton.png-3322882666b5af29d2e17fcd4e32ce81.ctex"
+uid="uid://qavva6tyo4du"
+path="res://.godot/imported/PowerTimerBackground.png-be94b05d77f472b2f0b820f9916f7753.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Hud/PauseButton.png"
-dest_files=["res://.godot/imported/PauseButton.png-3322882666b5af29d2e17fcd4e32ce81.ctex"]
+source_file="res://Assets/World/Hud/PowerTimerBackground.png"
+dest_files=["res://.godot/imported/PowerTimerBackground.png-be94b05d77f472b2f0b820f9916f7753.ctex"]
 
 [params]
 
