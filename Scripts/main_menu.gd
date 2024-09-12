@@ -32,7 +32,7 @@ func update_game_mode() -> void:
 	
 	#-------------------------
 	# Remove later after other gamemodes are made!
-	if Global.current_game_mode == Global.gameModes.TANK_MAYHEM:
+	if Global.current_game_mode == Global.gameModes.POWER_MANIA:
 		modeRightButton.disabled = true
 	#-------------------------
 

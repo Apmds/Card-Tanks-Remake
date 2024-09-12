@@ -21,8 +21,14 @@ class_name Game extends Node2D
 ## Radius in tiles where tanks cannot spawn.
 @export var not_spawn_radius : int = 6
 
+@export_group("Powers")
+## Number of pwoers that spawn in the begining.
+@export var start_spawn_powers : int
+
 ## Array of tank scenes to spawn.
 var spawnable_tanks : Array[PackedScene] = []
+
+var powerScene : PackedScene = preload("res://Scenes/power.tscn")
 
 ## Whether or not powers spawn or not
 var spawn_powers : bool = false
@@ -103,6 +109,43 @@ func execute_button_action(button : TextureButton) -> void:
 			actions.SHOOT:
 				player.shoot_all()
 
+## Returns a grid position that isn't occupied by anything and is within the proper spawn radius.
+func get_valid_grid_position() -> Vector2i:
+	var grid_pos : Vector2i
+	var position_valid = false
+	while !position_valid:
+		grid_pos = Vector2i(
+			randi_range(not_spawn_radius, spawn_radius) * pow(-1, randi_range(0, 1)),
+			randi_range(not_spawn_radius, spawn_radius) * pow(-1, randi_range(0, 1))
+		)
+		
+		#var tank_x = randi_range(not_spawn_radius, spawn_radius) * pow(-1, randi_range(0, 1))
+		#var tank_y = randi_range(not_spawn_radius, spawn_radius) * pow(-1, randi_range(0, 1))
+		if randf() < 0.5:
+			grid_pos.x = randi_range(-spawn_radius, spawn_radius)
+		else:
+			grid_pos.y = randi_range(-spawn_radius, spawn_radius)
+
+		# Spawn around the player if it exists
+		if player != null:
+			grid_pos.x += player.grid_position.x
+			grid_pos.y += player.grid_position.y
+
+		#tank_instance.set_grid_position(Vector2i(tank_x, tank_y))
+	
+		# Check if tank is overlapping with another
+		position_valid = true
+		for t : Tank in tanks.get_children():
+			if t.grid_position == grid_pos:
+				position_valid = false
+				break
+		for p : Power in powers.get_children():
+			if p.grid_position == grid_pos:
+				position_valid = false
+				break
+	
+	return grid_pos
+
 ## Spawns a random tank from the array of spawnable tanks if any exist.
 func spawn_tank() -> void:
 	# Don't spawn if tank limit has been reached or there is no more space for a new tank
@@ -114,41 +157,26 @@ func spawn_tank() -> void:
 		return
 	
 	var tank_instance : Tank = tank.instantiate()
-
-	var tank_position_valid = false
-	while !tank_position_valid:
-		var tank_x = randi_range(not_spawn_radius, spawn_radius) * pow(-1, randi_range(0, 1))
-		var tank_y = randi_range(not_spawn_radius, spawn_radius) * pow(-1, randi_range(0, 1))
-		if randf() < 0.5:
-			tank_x = randi_range(-spawn_radius, spawn_radius)
-		else:
-			tank_y = randi_range(-spawn_radius, spawn_radius)
-
-		# Spawn around the player if it exists
-		if player != null:
-			tank_x += player.grid_position.x
-			tank_y += player.grid_position.y
-
-		tank_instance.set_grid_position(Vector2i(tank_x, tank_y))
 	
-		# Check if tank is overlapping with another
-		tank_position_valid = true
-		for t : Tank in tanks.get_children():
-			if t.grid_position == tank_instance.grid_position:
-				tank_position_valid = false
-				break
-		for p : Power in powers.get_children():
-			if p.grid_position == tank_instance.grid_position:
-				tank_position_valid = false
-				break
+	tank_instance.set_grid_position(get_valid_grid_position())
 	
 	tanks.add_child(tank_instance)
 	tank_instance.owner = self
 	tank_instance.destroyed.connect(_on_tank_destroyed)
 
 ## Spawns one power into the world.
-func spawn_power():
-	pass
+func spawn_power() -> void:
+	# Don't spawn if there is no more space.
+	if tanks.get_child_count() + powers.get_child_count() >= pow(2*spawn_radius+1, 2) - pow(2*(not_spawn_radius-1)+1, 2):
+		return
+	
+	var power_instance : Power = powerScene.instantiate()
+	
+	power_instance.set_grid_position(get_valid_grid_position())
+	
+	power_instance.power = Global.powers.values().pick_random()
+	powers.add_child(power_instance)
+	power_instance.grabbed.connect(_on_power_grabbed)
 
 func _ready():
 	score = 0
@@ -180,6 +208,9 @@ func _ready():
 	
 	for i in range(start_spawn_tanks):
 		spawn_tank()
+	
+	for i in range(start_spawn_powers):
+		spawn_power()
 	
 	$SpawnTimer.start()
 
@@ -217,6 +248,8 @@ func _on_player_destroyed():
 func _on_tank_destroyed():
 	score += 100
 
+func _on_power_grabbed():
+	pass
 
 func _on_pause_button_pressed():
 	get_tree().paused = true
@@ -234,7 +267,7 @@ func _on_main_menu_button_pressed():
 func _on_spawn_timer_timeout():
 	spawn_tank()
 	
-	if spawn_powers:
+	if spawn_powers and randf() < 0.25:
 		spawn_power()
 
 

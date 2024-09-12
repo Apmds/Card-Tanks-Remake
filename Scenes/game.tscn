@@ -45,6 +45,8 @@ button_right = NodePath("HUD/Down/CenterContainer/Buttons/Right")
 player = NodePath("PlayerTank")
 start_spawn_tanks = 30
 spawn_radius = 13
+max_tanks = 140
+start_spawn_powers = 15
 
 [node name="Background" type="ParallaxBackground" parent="."]
 
