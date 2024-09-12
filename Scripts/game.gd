@@ -239,6 +239,11 @@ func _on_player_moved():
 	for tank in tanks.get_children():
 		if abs(tank.grid_position.x - player.grid_position.x) > spawn_radius*1.1 or abs(tank.grid_position.y - player.grid_position.y) > spawn_radius*1.1:
 			tank.queue_free()
+	
+	# Delete powers that are too far away from the player
+	for power in powers.get_children():
+		if abs(power.grid_position.x - player.grid_position.x) > spawn_radius*1.1 or abs(power.grid_position.y - player.grid_position.y) > spawn_radius*1.1:
+			power.queue_free()
 
 func _on_player_destroyed():
 	button_left.disabled = true
