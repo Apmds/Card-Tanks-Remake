@@ -261,13 +261,15 @@ func _on_power_grabbed(power):
 	for power_timer : PowerTimer in power_timers.get_children():
 		if power_timer.power == power:
 			power_timer.restart()
-			return
+			
+			if power_timer.power != Global.powers.ADD_CANNON:
+				return
 	
 	var power_timer_instance : PowerTimer = powerTimerScene.instantiate()
 	
 	match power:
 		Global.powers.ADD_CANNON:
-			pass
+			player.stage = clamp(player.stage + 1, 0, 3)
 		Global.powers.ARMOR:
 			pass
 		Global.powers.DOUBLE_POINTS:
@@ -282,7 +284,7 @@ func _on_power_grabbed(power):
 func _on_power_timer_ended(power):
 	match power:
 		Global.powers.ADD_CANNON:
-			pass
+			player.stage = 0
 		Global.powers.ARMOR:
 			pass
 		Global.powers.DOUBLE_POINTS:
