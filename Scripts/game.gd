@@ -209,8 +209,9 @@ func _ready():
 	for i in range(start_spawn_tanks):
 		spawn_tank()
 	
-	for i in range(start_spawn_powers):
-		spawn_power()
+	if spawn_powers:
+		for i in range(start_spawn_powers):
+			spawn_power()
 	
 	$SpawnTimer.start()
 
