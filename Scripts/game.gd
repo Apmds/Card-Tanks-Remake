@@ -29,6 +29,7 @@ class_name Game extends Node2D
 var spawnable_tanks : Array[PackedScene] = []
 
 var powerScene : PackedScene = preload("res://Scenes/power.tscn")
+var powerTimerScene : PackedScene = preload("res://Scenes/power_timer.tscn")
 
 ## Whether or not powers spawn or not
 var spawn_powers : bool = false
@@ -41,9 +42,13 @@ var score : int = 0 :
 		if score > Global.high_scores[Global.current_game_mode]:
 			Global.high_scores[Global.current_game_mode] = score
 
+## Multiplier for gaining score.
+var score_multiplier : float = 1
+
 
 @onready var tanks : Node2D = $Tanks
 @onready var powers : Node2D = $Powers
+@onready var power_timers : HBoxContainer = $HUD/PowerTimers
 @onready var score_label : Label = $HUD/Up/Score
 @onready var camera : GameCamera = $Camera
 @onready var pause_button : TextureButton = $HUD/Up/PauseButton
@@ -241,16 +246,49 @@ func _on_player_destroyed():
 	button_right.disabled = true
 	pause_button.disabled = true
 	
+	for power_timer : PowerTimer in power_timers.get_children():
+		power_timer.stop()
+	
 	camera.set_new_zoom(Vector2.ONE * 3)
 	Global.save_game_data()
 	await get_tree().create_timer(2).timeout
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 
 func _on_tank_destroyed():
-	score += 100
+	score += 100 * score_multiplier
 
-func _on_power_grabbed():
-	pass
+func _on_power_grabbed(power):
+	for power_timer : PowerTimer in power_timers.get_children():
+		if power_timer.power == power:
+			power_timer.restart()
+			return
+	
+	var power_timer_instance : PowerTimer = powerTimerScene.instantiate()
+	
+	match power:
+		Global.powers.ADD_CANNON:
+			pass
+		Global.powers.ARMOR:
+			pass
+		Global.powers.DOUBLE_POINTS:
+			score_multiplier *= 2
+		Global.powers.ZOOM_OUT:
+			camera.set_new_zoom(Vector2(1, 1))
+	
+	power_timers.add_child(power_timer_instance)
+	power_timer_instance.set_power(power)
+	power_timer_instance.ended.connect(_on_power_timer_ended)
+
+func _on_power_timer_ended(power):
+	match power:
+		Global.powers.ADD_CANNON:
+			pass
+		Global.powers.ARMOR:
+			pass
+		Global.powers.DOUBLE_POINTS:
+			score_multiplier /= 2
+		Global.powers.ZOOM_OUT:
+			camera.set_new_zoom(Vector2(2, 2))
 
 func _on_pause_button_pressed():
 	get_tree().paused = true

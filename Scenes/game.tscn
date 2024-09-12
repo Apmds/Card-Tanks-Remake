@@ -77,7 +77,7 @@ texture = ExtResource("2_dgwsf")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("following")]
 offset = Vector2(0, 32)
-zoom = Vector2(2, 2)
+zoom = Vector2(0.5, 0.5)
 process_callback = 0
 script = ExtResource("3_wt3t1")
 following = NodePath("../PlayerTank")
@@ -165,7 +165,7 @@ texture_pressed = ExtResource("8_4x014")
 texture_hover = ExtResource("9_twyd1")
 texture_disabled = ExtResource("8_4x014")
 
-[node name="powerTimers" type="HBoxContainer" parent="HUD"]
+[node name="PowerTimers" type="HBoxContainer" parent="HUD"]
 offset_left = 9.0
 offset_top = 267.0
 offset_right = 256.0
