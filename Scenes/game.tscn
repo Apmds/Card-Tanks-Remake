@@ -196,6 +196,7 @@ theme_override_constants/separation = 40
 alignment = 1
 
 [node name="ContinueButton" type="Button" parent="PauseScreen/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(235, 75)
 layout_mode = 2
 theme = ExtResource("12_rjkls")
 shortcut = SubResource("Shortcut_tijoe")
@@ -203,6 +204,7 @@ shortcut_in_tooltip = false
 text = "continue"
 
 [node name="MainMenuButton" type="Button" parent="PauseScreen/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(235, 75)
 layout_mode = 2
 theme = ExtResource("12_rjkls")
 shortcut_in_tooltip = false
