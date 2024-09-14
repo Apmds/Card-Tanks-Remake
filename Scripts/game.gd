@@ -264,6 +264,11 @@ func _on_tank_destroyed():
 
 func _on_power_grabbed(power):
 	for power_timer : PowerTimer in power_timers.get_children():
+		if power == Global.powers.ADD_CANNON and power_timer.power == Global.powers.ARMOR:
+			return
+		if power == Global.powers.ARMOR and power_timer.power == Global.powers.ADD_CANNON:
+			return
+		
 		if power_timer.power == power:
 			power_timer.restart()
 			
@@ -274,9 +279,9 @@ func _on_power_grabbed(power):
 	
 	match power:
 		Global.powers.ADD_CANNON:
-			player.stage = clamp(player.stage + 1, 0, 3)
+			player.cannon_stage = clamp(player.cannon_stage + 1, 0, 3)
 		Global.powers.ARMOR:
-			pass
+			player.has_armor = true
 		Global.powers.DOUBLE_POINTS:
 			score_multiplier *= 2
 		Global.powers.ZOOM_OUT:
@@ -289,9 +294,9 @@ func _on_power_grabbed(power):
 func _on_power_timer_ended(power):
 	match power:
 		Global.powers.ADD_CANNON:
-			player.stage = 0
+			player.cannon_stage = 0
 		Global.powers.ARMOR:
-			pass
+			player.has_armor = false
 		Global.powers.DOUBLE_POINTS:
 			score_multiplier /= 2
 		Global.powers.ZOOM_OUT:

@@ -62,7 +62,7 @@ func set_grid_position(new_position : Vector2i) -> void:
 	position.y = grid_position.y * 32
 
 ## Setter for both of the tanks directions.
-func set_direction(new_direction):
+func set_direction(new_direction : directions) -> void:
 	set_body_direction(new_direction)
 	set_cannons_direction(new_direction)
 

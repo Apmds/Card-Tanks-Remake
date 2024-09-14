@@ -6,19 +6,25 @@ const double_cannon_texture : CompressedTexture2D = preload("res://Assets/Tanks/
 const triple_cannon_texture : CompressedTexture2D = preload("res://Assets/Tanks/Player/cannon_triple.png")
 const quadruple_cannon_texture : CompressedTexture2D = preload("res://Assets/Tanks/Player/cannon_quadruple.png")
 
+const body_texture : CompressedTexture2D = preload("res://Assets/Tanks/Player/body_idle.png")
+
+const body_armor_texture : CompressedTexture2D = preload("res://Assets/Tanks/Player/body_idle_armor.png")
+const cannon_armor_texture : CompressedTexture2D = preload("res://Assets/Tanks/Player/cannon_idle_armor.png")
+
 @onready var cannons_sprite = $Cannons/CannonsSprite
+@onready var body_sprite = $Body/BodySprite
 
 var crossair_left : Marker2D = Marker2D.new()
 var crossair_up : Marker2D = Marker2D.new()
 var crossair_down : Marker2D = Marker2D.new()
-var stage : int = 0 :
+var cannon_stage : int = 0 :
 	set(new_stage):
-		stage = new_stage
+		cannon_stage = new_stage
 		
 		remove_cannon_left()
 		remove_cannon_up()
 		remove_cannon_down()
-		match stage:
+		match cannon_stage:
 			0:
 				cannons_sprite.texture = single_cannon_texture
 			1:
@@ -33,6 +39,17 @@ var stage : int = 0 :
 				add_cannon_left()
 				add_cannon_up()
 				add_cannon_down()
+
+var has_armor : bool = false : 
+	set(new_val):
+		has_armor = new_val
+		
+		if has_armor:
+			body_sprite.texture = body_armor_texture
+			cannons_sprite.texture = cannon_armor_texture
+		else:
+			body_sprite.texture = body_texture
+			cannons_sprite.texture = single_cannon_texture
 
 func add_cannon_left() -> void:
 	if not crossair_left in crossairs.get_children():
@@ -57,6 +74,10 @@ func remove_cannon_up() -> void:
 func remove_cannon_down() -> void:
 	if crossair_down in crossairs.get_children():
 		crossairs.remove_child(crossair_down)
+
+func explode():
+	if !has_armor:
+		super.explode()
 
 func _ready():
 	crossair_left.set_meta("shoot_direction", directions.LEFT)
