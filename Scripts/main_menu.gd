@@ -5,7 +5,7 @@ var i = 0
 var modesImages = {
 	Global.gameModes.CLASSIC: preload("res://Assets/Main menu/ClassicModeBanner.png"),
 	Global.gameModes.TANK_MAYHEM: preload("res://Assets/Main menu/TankMayhemModeBanner.png"),
-	Global.gameModes.POWER_MANIA: preload("res://Assets/Main menu/ClassicModeBanner.png"),
+	Global.gameModes.POWER_MANIA: preload("res://Assets/Main menu/PowerManiaModeBanner.png"),
 	Global.gameModes.CHAOS_MODE: preload("res://Assets/Main menu/ClassicModeBanner.png"),
 }
 
