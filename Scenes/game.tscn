@@ -19,23 +19,23 @@ action = &"pause"
 [sub_resource type="Shortcut" id="Shortcut_tijoe"]
 events = [SubResource("InputEventAction_rbofp")]
 
-[sub_resource type="InputEventAction" id="InputEventAction_d7pg5"]
+[sub_resource type="InputEventAction" id="InputEventAction_b26ts"]
 action = &"button_left"
 
-[sub_resource type="Shortcut" id="Shortcut_1pr1d"]
-events = [SubResource("InputEventAction_d7pg5")]
+[sub_resource type="Shortcut" id="Shortcut_scvml"]
+events = [SubResource("InputEventAction_b26ts")]
 
-[sub_resource type="InputEventAction" id="InputEventAction_q6xbm"]
+[sub_resource type="InputEventAction" id="InputEventAction_kfte4"]
 action = &"button_center"
 
-[sub_resource type="Shortcut" id="Shortcut_umalo"]
-events = [SubResource("InputEventAction_q6xbm")]
+[sub_resource type="Shortcut" id="Shortcut_3rtmh"]
+events = [SubResource("InputEventAction_kfte4")]
 
-[sub_resource type="InputEventAction" id="InputEventAction_ggex7"]
+[sub_resource type="InputEventAction" id="InputEventAction_d02lx"]
 action = &"button_right"
 
-[sub_resource type="Shortcut" id="Shortcut_30cyq"]
-events = [SubResource("InputEventAction_ggex7")]
+[sub_resource type="Shortcut" id="Shortcut_f64th"]
+events = [SubResource("InputEventAction_d02lx")]
 
 [node name="game" type="Node2D" node_paths=PackedStringArray("button_left", "button_center", "button_right", "player")]
 script = ExtResource("1_m3dwi")
@@ -140,7 +140,7 @@ theme_override_constants/separation = 15
 
 [node name="Left" type="TextureButton" parent="HUD/Down/CenterContainer/Buttons"]
 layout_mode = 2
-shortcut = SubResource("Shortcut_1pr1d")
+shortcut = SubResource("Shortcut_scvml")
 shortcut_in_tooltip = false
 texture_normal = ExtResource("6_nmjdf")
 texture_pressed = ExtResource("8_4x014")
@@ -149,7 +149,7 @@ texture_disabled = ExtResource("8_4x014")
 
 [node name="Center" type="TextureButton" parent="HUD/Down/CenterContainer/Buttons"]
 layout_mode = 2
-shortcut = SubResource("Shortcut_umalo")
+shortcut = SubResource("Shortcut_3rtmh")
 shortcut_in_tooltip = false
 texture_normal = ExtResource("6_nmjdf")
 texture_pressed = ExtResource("8_4x014")
@@ -158,7 +158,7 @@ texture_disabled = ExtResource("8_4x014")
 
 [node name="Right" type="TextureButton" parent="HUD/Down/CenterContainer/Buttons"]
 layout_mode = 2
-shortcut = SubResource("Shortcut_30cyq")
+shortcut = SubResource("Shortcut_f64th")
 shortcut_in_tooltip = false
 texture_normal = ExtResource("6_nmjdf")
 texture_pressed = ExtResource("8_4x014")

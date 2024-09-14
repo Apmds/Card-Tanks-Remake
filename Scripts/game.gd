@@ -73,33 +73,42 @@ enum actions {
 	MOVE, SHOOT, TURN_LEFT, TURN_RIGHT
 }
 
-## Randomizes the action of the requested button and updates its texture.
+## Randomizes the action of the button.
 func randomize_button(button : TextureButton) -> void:
 	var val = randf()
 	if val < 0.25:
-		button.set_meta("action", actions.MOVE)
-		button.texture_normal = move_button_texture
-		button.texture_hover = move_button_hover_texture
-		button.texture_pressed = move_button_pressed_texture
-		button.texture_disabled = move_button_pressed_texture
+		set_button_action(button, actions.MOVE)
 	elif val < 0.5:
-		button.set_meta("action", actions.TURN_LEFT)
-		button.texture_normal = turn_left_button_texture
-		button.texture_hover = turn_left_button_hover_texture
-		button.texture_pressed = turn_left_button_pressed_texture
-		button.texture_disabled = turn_left_button_pressed_texture
+		set_button_action(button, actions.TURN_LEFT)
 	elif val < 0.75:
-		button.set_meta("action", actions.TURN_RIGHT)
-		button.texture_normal = turn_right_button_texture
-		button.texture_hover = turn_right_button_hover_texture
-		button.texture_pressed = turn_right_button_pressed_texture
-		button.texture_disabled = turn_right_button_pressed_texture
+		set_button_action(button, actions.TURN_RIGHT)
 	else:
-		button.set_meta("action", actions.SHOOT)
-		button.texture_normal = shoot_button_texture
-		button.texture_hover = shoot_button_hover_texture
-		button.texture_pressed = shoot_button_pressed_texture
-		button.texture_disabled = shoot_button_pressed_texture
+		set_button_action(button, actions.SHOOT)
+
+## Sets the action of a button and updates it.
+func set_button_action(button : TextureButton, action : actions) -> void:
+	button.set_meta("action", action)
+	match action:
+		actions.MOVE:
+			button.texture_normal = move_button_texture
+			button.texture_hover = move_button_hover_texture
+			button.texture_pressed = move_button_pressed_texture
+			button.texture_disabled = move_button_pressed_texture
+		actions.TURN_LEFT:
+			button.texture_normal = turn_left_button_texture
+			button.texture_hover = turn_left_button_hover_texture
+			button.texture_pressed = turn_left_button_pressed_texture
+			button.texture_disabled = turn_left_button_pressed_texture
+		actions.TURN_RIGHT:
+			button.texture_normal = turn_right_button_texture
+			button.texture_hover = turn_right_button_hover_texture
+			button.texture_pressed = turn_right_button_pressed_texture
+			button.texture_disabled = turn_right_button_pressed_texture
+		actions.SHOOT:
+			button.texture_normal = shoot_button_texture
+			button.texture_hover = shoot_button_hover_texture
+			button.texture_pressed = shoot_button_pressed_texture
+			button.texture_disabled = shoot_button_pressed_texture
 
 ## Executes the action from the given button.
 func execute_button_action(button : TextureButton) -> void:
@@ -223,15 +232,21 @@ func _ready():
 
 func _on_button_left_pressed():
 	execute_button_action(button_left)
-	randomize_button(button_left)
+	
+	if player != null and !player.has_armor:
+		randomize_button(button_left)
 
 func _on_button_center_pressed():
 	execute_button_action(button_center)
-	randomize_button(button_center)
+	
+	if player != null and !player.has_armor:
+		randomize_button(button_center)
 
 func _on_button_right_pressed():
 	execute_button_action(button_right)
-	randomize_button(button_right)
+	
+	if player != null and !player.has_armor:
+		randomize_button(button_right)
 
 
 func _on_player_moved():
@@ -264,16 +279,20 @@ func _on_tank_destroyed():
 
 func _on_power_grabbed(power):
 	for power_timer : PowerTimer in power_timers.get_children():
+		# Do nothing if player grabs armor while having multiple cannons and vice-versa.
 		if power == Global.powers.ADD_CANNON and power_timer.power == Global.powers.ARMOR:
 			return
 		if power == Global.powers.ARMOR and power_timer.power == Global.powers.ADD_CANNON:
 			return
 		
-		if power_timer.power == power:
+		# Restart the timer if the power's already active.
+		if power_timer.power == power and power != Global.powers.ARMOR:
 			power_timer.restart()
 			
 			if power_timer.power != Global.powers.ADD_CANNON:
 				return
+		else: # Prevent the player from easily getting infinite armor.
+			return
 	
 	var power_timer_instance : PowerTimer = powerTimerScene.instantiate()
 	
@@ -282,6 +301,13 @@ func _on_power_grabbed(power):
 			player.cannon_stage = clamp(player.cannon_stage + 1, 0, 3)
 		Global.powers.ARMOR:
 			player.has_armor = true
+			
+			if button_left != null:
+				set_button_action(button_left, actions.TURN_LEFT)
+			if button_right != null:
+				set_button_action(button_center, actions.MOVE)
+			if button_right != null:
+				set_button_action(button_right, actions.TURN_RIGHT)
 		Global.powers.DOUBLE_POINTS:
 			score_multiplier *= 2
 		Global.powers.ZOOM_OUT:
@@ -297,6 +323,13 @@ func _on_power_timer_ended(power):
 			player.cannon_stage = 0
 		Global.powers.ARMOR:
 			player.has_armor = false
+			
+			if button_left != null:
+				randomize_button(button_left)
+			if button_center != null:
+				randomize_button(button_center)
+			if button_right != null:
+				randomize_button(button_right)
 		Global.powers.DOUBLE_POINTS:
 			score_multiplier /= 2
 		Global.powers.ZOOM_OUT:
