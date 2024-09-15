@@ -1,12 +1,35 @@
-[gd_scene load_steps=19 format=3 uid="uid://mxenhixj6k77"]
+[gd_scene load_steps=28 format=3 uid="uid://mxenhixj6k77"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_5gtm7"]
 [ext_resource type="Theme" uid="uid://dcjb7qfknp7ir" path="res://Assets/Ui/ui_theme.tres" id="2_holyn"]
 [ext_resource type="Texture2D" uid="uid://cyk0a14jcu48k" path="res://Assets/Ui/settings_icon.png" id="3_gmav2"]
+[ext_resource type="Texture2D" uid="uid://bxv5lxcvuaig8" path="res://Assets/Main menu/Background.png" id="3_ssypx"]
+[ext_resource type="Shader" path="res://Assets/Shaders/blur.gdshader" id="3_wh4r8"]
 [ext_resource type="Texture2D" uid="uid://bnjyvsfbhjctv" path="res://Assets/Ui/left_arrow_icon.png" id="4_evmyr"]
 [ext_resource type="Texture2D" uid="uid://bp5lbppuecqjy" path="res://Assets/Ui/right_arrow_icon.png" id="5_il6h4"]
 [ext_resource type="Texture2D" uid="uid://yk0lk8ehl7mw" path="res://Assets/Main menu/ClassicModeBanner.png" id="6_jkhwi"]
 [ext_resource type="Texture2D" uid="uid://cfjnvw7f7hwpx" path="res://Assets/Ui/check_icon.png" id="7_ftjrw"]
+[ext_resource type="Texture2D" uid="uid://cvu6bf0ep44w6" path="res://Assets/Ui/button.png" id="8_56xtu"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rdjf5"]
+content_margin_left = 45.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("8_56xtu")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+expand_margin_left = 7.0
+expand_margin_top = 7.0
+expand_margin_right = 7.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5kgks"]
+shader = ExtResource("3_wh4r8")
+shader_parameter/strength = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bfw66"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_sq8j7"]
 keycode = 32
@@ -17,11 +40,35 @@ keycode = 4194309
 [sub_resource type="Shortcut" id="Shortcut_n67mw"]
 events = [SubResource("InputEventKey_sq8j7"), SubResource("InputEventKey_bvu1b")]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cq8as"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+texture = ExtResource("8_56xtu")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+expand_margin_left = 7.0
+expand_margin_top = 7.0
+expand_margin_right = 7.0
+expand_margin_bottom = 7.0
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n58q2"]
+bg_color = Color(0.243137, 0.352941, 0.835294, 0.639216)
+
 [sub_resource type="InputEventKey" id="InputEventKey_pyvo4"]
 keycode = 4194319
 
 [sub_resource type="Shortcut" id="Shortcut_hqsk4"]
 events = [SubResource("InputEventKey_pyvo4")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_edluu"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.254902, 0.254902, 0.254902, 0.494118)
 
 [sub_resource type="InputEventKey" id="InputEventKey_4it0r"]
 keycode = 4194321
@@ -29,8 +76,19 @@ keycode = 4194321
 [sub_resource type="Shortcut" id="Shortcut_kq77x"]
 events = [SubResource("InputEventKey_4it0r")]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n58q2"]
-bg_color = Color(0.243137, 0.352941, 0.835294, 0.639216)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i68bm"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+texture = ExtResource("8_56xtu")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+expand_margin_left = 7.0
+expand_margin_right = 7.0
+expand_margin_bottom = 7.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1rw0o"]
 
@@ -49,88 +107,91 @@ theme = ExtResource("2_holyn")
 script = ExtResource("1_5gtm7")
 
 [node name="MainMenu" type="Control" parent="."]
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+theme_override_constants/separation = 0
 
-[node name="bg" type="ColorRect" parent="MainMenu"]
-layout_mode = 0
-offset_right = 540.0
-offset_bottom = 1200.0
-color = Color(0.823529, 0.811765, 0.686275, 1)
-
-[node name="Title" type="Label" parent="MainMenu"]
+[node name="UpPanel" type="PanelContainer" parent="MainMenu/VBoxContainer"]
+custom_minimum_size = Vector2(540, 170)
 layout_mode = 2
-offset_left = 44.0
-offset_top = 222.0
-offset_right = 495.0
-offset_bottom = 453.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_rdjf5")
+
+[node name="Settings" type="Button" parent="MainMenu/VBoxContainer/UpPanel"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+icon = ExtResource("3_gmav2")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Background" type="TextureRect" parent="MainMenu/VBoxContainer"]
+material = SubResource("ShaderMaterial_5kgks")
+custom_minimum_size = Vector2(540, 936)
+layout_mode = 2
+texture = ExtResource("3_ssypx")
+
+[node name="HSeparator" type="HSeparator" parent="MainMenu/VBoxContainer/Background"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 100.0
+grow_horizontal = 2
+theme_override_constants/separation = 100
+theme_override_styles/separator = SubResource("StyleBoxEmpty_bfw66")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/VBoxContainer/Background"]
+layout_mode = 2
+offset_top = 85.0
+offset_right = 540.0
+offset_bottom = 936.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="Title" type="Label" parent="MainMenu/VBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_type_variation = &"HeaderLarge"
 text = "Card
 Tanks"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Settings" type="Button" parent="MainMenu"]
-layout_mode = 0
-offset_left = 45.0
-offset_top = 46.0
-offset_right = 125.0
-offset_bottom = 126.0
-icon = ExtResource("3_gmav2")
-icon_alignment = 1
-expand_icon = true
-
-[node name="Play" type="Button" parent="MainMenu"]
-layout_mode = 0
-offset_left = 155.0
-offset_top = 585.0
-offset_right = 377.0
-offset_bottom = 703.0
+[node name="Play" type="Button" parent="MainMenu/VBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(222, 118)
+layout_mode = 2
+size_flags_horizontal = 4
 theme_type_variation = &"HeaderButton"
 shortcut = SubResource("Shortcut_n67mw")
 shortcut_in_tooltip = false
 text = "Play"
 
-[node name="ModeLeft" type="Button" parent="MainMenu"]
-layout_mode = 0
-offset_left = 61.0
-offset_top = 975.0
-offset_right = 141.0
-offset_bottom = 1055.0
-shortcut = SubResource("Shortcut_hqsk4")
-shortcut_in_tooltip = false
-icon = ExtResource("4_evmyr")
-icon_alignment = 1
-expand_icon = true
+[node name="PanelContainer" type="PanelContainer" parent="MainMenu/VBoxContainer/Background/VBoxContainer"]
+custom_minimum_size = Vector2(312, 224)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_cq8as")
+metadata/_edit_group_ = true
 
-[node name="ModeRight" type="Button" parent="MainMenu"]
-layout_mode = 0
-offset_left = 402.0
-offset_top = 974.0
-offset_right = 482.0
-offset_bottom = 1054.0
-shortcut = SubResource("Shortcut_kq77x")
-shortcut_in_tooltip = false
-icon = ExtResource("5_il6h4")
-icon_alignment = 1
-expand_icon = true
-
-[node name="ModeImage" type="TextureRect" parent="MainMenu"]
-layout_mode = 0
-offset_left = 113.0
-offset_top = 738.0
-offset_right = 426.0
-offset_bottom = 963.0
+[node name="ModeImage" type="TextureRect" parent="MainMenu/VBoxContainer/Background/VBoxContainer/PanelContainer"]
+layout_mode = 2
 texture = ExtResource("6_jkhwi")
 stretch_mode = 5
 
-[node name="ModeName" type="Label" parent="MainMenu/ModeImage"]
-layout_mode = 0
-offset_top = 173.0
-offset_right = 313.0
-offset_bottom = 225.0
-pivot_offset = Vector2(29.165, 0)
+[node name="ModeName" type="Label" parent="MainMenu/VBoxContainer/Background/VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_vertical = 8
 theme_type_variation = &"HeaderSmall"
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_n58q2")
@@ -138,16 +199,45 @@ text = "classic"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HighScore" type="Label" parent="MainMenu"]
-layout_mode = 0
-offset_left = 160.0
-offset_top = 962.0
-offset_right = 384.0
-offset_bottom = 1069.0
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/VBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 0
+
+[node name="ModeLeft" type="Button" parent="MainMenu/VBoxContainer/Background/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+shortcut = SubResource("Shortcut_hqsk4")
+shortcut_in_tooltip = false
+icon = ExtResource("4_evmyr")
+icon_alignment = 1
+expand_icon = true
+
+[node name="HighScore" type="Label" parent="MainMenu/VBoxContainer/Background/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(224, 60)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_edluu")
 text = "High score: ###"
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 2
+
+[node name="ModeRight" type="Button" parent="MainMenu/VBoxContainer/Background/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+shortcut = SubResource("Shortcut_kq77x")
+shortcut_in_tooltip = false
+icon = ExtResource("5_il6h4")
+icon_alignment = 1
+expand_icon = true
+
+[node name="DownPanel" type="PanelContainer" parent="MainMenu/VBoxContainer"]
+custom_minimum_size = Vector2(540, 94)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_i68bm")
 
 [node name="Settings" type="Control" parent="."]
 anchors_preset = 0
@@ -156,9 +246,12 @@ offset_right = 540.0
 metadata/_edit_group_ = true
 
 [node name="CenterContainer" type="CenterContainer" parent="Settings"]
-layout_mode = 0
-offset_right = 540.0
-offset_bottom = 1200.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Settings/CenterContainer"]
 custom_minimum_size = Vector2(450, 700)
@@ -241,10 +334,10 @@ layout_mode = 2
 text = "Back to main menu"
 flat = true
 
-[connection signal="pressed" from="MainMenu/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="MainMenu/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="MainMenu/ModeLeft" to="." method="_on_mode_left_pressed"]
-[connection signal="pressed" from="MainMenu/ModeRight" to="." method="_on_mode_right_pressed"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/UpPanel/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Background/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Background/VBoxContainer/HBoxContainer/ModeLeft" to="." method="_on_mode_left_pressed"]
+[connection signal="pressed" from="MainMenu/VBoxContainer/Background/VBoxContainer/HBoxContainer/ModeRight" to="." method="_on_mode_right_pressed"]
 [connection signal="toggled" from="Settings/CenterContainer/Panel/MarginContainer/VBoxContainer/Sound/SoundButton" to="." method="_on_sound_button_toggled"]
 [connection signal="toggled" from="Settings/CenterContainer/Panel/MarginContainer/VBoxContainer/Music/MusicButton" to="." method="_on_music_button_toggled"]
 [connection signal="pressed" from="Settings/CenterContainer/Panel/MarginContainer/VBoxContainer/BackButton" to="." method="_on_settings_back_button_pressed"]

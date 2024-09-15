@@ -12,11 +12,12 @@ var modesImages = {
 var checkIcon = preload("res://Assets/Ui/check_icon.png")
 var uncheckIcon = preload("res://Assets/Ui/uncheck_icon.png")
 
-@onready var modeImage : TextureRect = $MainMenu/ModeImage
-@onready var modeNameLabel : Label = $MainMenu/ModeImage/ModeName
-@onready var highScoreLabel : Label = $MainMenu/HighScore
-@onready var modeLeftButton : Button = $MainMenu/ModeLeft
-@onready var modeRightButton : Button = $MainMenu/ModeRight
+@onready var modeImage : TextureRect = $MainMenu/VBoxContainer/Background/VBoxContainer/PanelContainer/ModeImage
+@onready var modeNameLabel : Label = $MainMenu/VBoxContainer/Background/VBoxContainer/PanelContainer/ModeName
+@onready var highScoreLabel : Label = $MainMenu/VBoxContainer/Background/VBoxContainer/HBoxContainer/HighScore
+@onready var modeLeftButton : Button = $MainMenu/VBoxContainer/Background/VBoxContainer/HBoxContainer/ModeLeft
+@onready var modeRightButton : Button = $MainMenu/VBoxContainer/Background/VBoxContainer/HBoxContainer/ModeRight
+@onready var title : Label = $MainMenu/VBoxContainer/Background/VBoxContainer/Title
 
 @onready var settingsMenu : Control = $Settings
 @onready var soundButton : Button = $Settings/CenterContainer/Panel/MarginContainer/VBoxContainer/Sound/SoundButton
@@ -48,9 +49,9 @@ func _ready():
 	musicButton.icon = checkIcon if Global.music_on == 1 else uncheckIcon
 
 
-func _physics_process(_delta):
-	i += 5
-	$MainMenu/Title.position.y = 222 + sin(deg_to_rad(i))*20
+func _process(_delta):
+	i += 2
+	title.position.y = 0 + sin(deg_to_rad(i))*20
 
 
 func _on_play_pressed() -> void:
