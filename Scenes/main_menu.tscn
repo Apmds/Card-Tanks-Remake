@@ -140,23 +140,19 @@ custom_minimum_size = Vector2(540, 936)
 layout_mode = 2
 texture = ExtResource("3_ssypx")
 
-[node name="HSeparator" type="HSeparator" parent="MainMenu/VBoxContainer/Background"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 100.0
-grow_horizontal = 2
-theme_override_constants/separation = 100
-theme_override_styles/separator = SubResource("StyleBoxEmpty_bfw66")
-
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/VBoxContainer/Background"]
-layout_mode = 2
-offset_top = 85.0
-offset_right = 540.0
-offset_bottom = 936.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 50
+
+[node name="HSeparator" type="HSeparator" parent="MainMenu/VBoxContainer/Background/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_bfw66")
 
 [node name="Title" type="Label" parent="MainMenu/VBoxContainer/Background/VBoxContainer"]
 layout_mode = 2

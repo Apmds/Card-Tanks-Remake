@@ -278,21 +278,31 @@ func _on_tank_destroyed():
 	score += 100 * score_multiplier
 
 func _on_power_grabbed(power):
+	var end_all_timers : bool = false
+	
+	# Get number of timers of every power
+	var timers : Dictionary = {}
 	for power_timer : PowerTimer in power_timers.get_children():
-		# Do nothing if player grabs armor while having multiple cannons and vice-versa.
-		if power == Global.powers.ADD_CANNON and power_timer.power == Global.powers.ARMOR:
-			return
-		if power == Global.powers.ARMOR and power_timer.power == Global.powers.ADD_CANNON:
-			return
+		if !timers.has(power_timer.power):
+			timers[power_timer.power] = 0
+		timers[power_timer.power] += 1
 		
-		# Restart the timer if the power's already active.
-		if power_timer.power == power and power != Global.powers.ARMOR:
+		# Just restart the timer if the power's already active and if it's not an armor power.
+		if power == power_timer.power and power != Global.powers.ARMOR:
 			power_timer.restart()
-			
-			if power_timer.power != Global.powers.ADD_CANNON:
-				return
-		else: # Prevent the player from easily getting infinite armor.
 			return
+	
+	# Does nothing if there's an armor power active.
+	if timers.has(Global.powers.ARMOR):
+		return
+	
+	# Armor ends all other powers if not already active.
+	if power == Global.powers.ARMOR:
+		end_all_timers = true
+	
+	if end_all_timers:
+		for power_timer : PowerTimer in power_timers.get_children():
+			power_timer.stop_ended()
 	
 	var power_timer_instance : PowerTimer = powerTimerScene.instantiate()
 	

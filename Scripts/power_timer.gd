@@ -39,8 +39,15 @@ func set_power(new_power) -> void:
 func restart() -> void:
 	timer.start()
 
+## Stops the timer.
 func stop() -> void:
 	timer.stop()
+
+## Stops the timer while also deleting it and ending it with the [signal ended] signal.
+func stop_ended() -> void:
+	timer.stop()
+	ended.emit(power)
+	queue_free()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -51,5 +58,4 @@ func _process(delta):
 	value = (timer.time_left / timer.wait_time) * max_value
 
 func _on_timer_timeout():
-	ended.emit(power)
-	queue_free()
+	stop_ended()

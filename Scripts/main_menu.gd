@@ -50,8 +50,8 @@ func _ready():
 
 
 func _process(_delta):
-	i += 2
-	title.position.y = 0 + sin(deg_to_rad(i))*20
+	i += 5
+	title.position.y = 100 + sin(deg_to_rad(i))*20
 
 
 func _on_play_pressed() -> void:
