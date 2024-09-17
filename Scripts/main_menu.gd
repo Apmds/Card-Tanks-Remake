@@ -49,10 +49,10 @@ func _ready():
 	musicButton.icon = checkIcon if Global.music_on == 1 else uncheckIcon
 
 
-func _process(_delta):
-	i += 5
+func _process(delta):
+	i += delta * 200
 	title.position.y = 100 + sin(deg_to_rad(i))*20
-
+	#await get_tree().physics_frame
 
 func _on_play_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/game.tscn")
