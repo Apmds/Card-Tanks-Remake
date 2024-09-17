@@ -6,6 +6,7 @@ var speed = 300
 var tank_owner = null
 
 var distance_travelled = 0
+var max_distance = tile_range * 32 - 16
 var speed_vector = Vector2.ZERO
 
 func _ready():
@@ -16,7 +17,7 @@ func _physics_process(delta):
 	global_position += speed_vector * delta
 	distance_travelled += speed * delta
 	
-	if distance_travelled >= tile_range * 32 - 16:
+	if distance_travelled >= max_distance:
 		queue_free() 
 
 

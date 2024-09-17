@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://dylrcs2d3tbdj"]
+
+[ext_resource type="PackedScene" uid="uid://bponwv7hag88w" path="res://Scenes/bullet.tscn" id="1_g6bof"]
+[ext_resource type="Script" path="res://Scripts/mortar_ball.gd" id="2_iq2ty"]
+[ext_resource type="Texture2D" uid="uid://bashvclkjdrje" path="res://Assets/Tanks/Common/MortarBall.png" id="2_npab1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1w2ed"]
+size = Vector2(11, 11)
+
+[node name="MortarBall" instance=ExtResource("1_g6bof")]
+script = ExtResource("2_iq2ty")
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource("2_npab1")
+
+[node name="Collision" parent="." index="1"]
+shape = SubResource("RectangleShape2D_1w2ed")

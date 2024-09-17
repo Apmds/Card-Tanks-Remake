@@ -9,8 +9,8 @@ class_name Tank extends Area2D
 ## Debug var. The position to start the tank in.
 @export var start_position : Vector2i
 
+var bulletScene : PackedScene = preload("res://Scenes/bullet.tscn")
 
-const bulletScene : PackedScene = preload("res://Scenes/bullet.tscn")
 const shootParticlesScene : PackedScene = preload("res://Scenes/shoot_particles.tscn")
 
 

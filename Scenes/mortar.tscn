@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4twf4td4418"]
+
+[ext_resource type="PackedScene" uid="uid://xi4bq7sq2u7r" path="res://Scenes/ai_tank.tscn" id="1_ollil"]
+[ext_resource type="Script" path="res://Scripts/mortar.gd" id="2_8up4t"]
+[ext_resource type="Texture2D" uid="uid://can0u6oh4oie2" path="res://Assets/Tanks/Mortar/body_idle.png" id="2_dex1d"]
+[ext_resource type="Texture2D" uid="uid://cobaetrnulcm" path="res://Assets/Tanks/Mortar/cannon_idle.png" id="3_i3qel"]
+
+[node name="Mortar" instance=ExtResource("1_ollil")]
+script = ExtResource("2_8up4t")
+raycast_to_crossair = {
+0: NodePath("Cannons/Crossairs/Marker2D"),
+1: NodePath("Cannons/Crossairs/Marker2D2"),
+2: NodePath("Cannons/Crossairs/Marker2D3"),
+3: NodePath("Cannons/Crossairs/Marker2D4")
+}
+
+[node name="BodySprite" parent="Body" index="0"]
+texture = ExtResource("2_dex1d")
+
+[node name="CannonsSprite" parent="Cannons" index="0"]
+texture = ExtResource("3_i3qel")
+
+[node name="RayCast2D2" type="RayCast2D" parent="Cannons/RayCasts" index="1"]
+target_position = Vector2(0, 100)
+collision_mask = 4
+collide_with_areas = true
+metadata/id = 1
+
+[node name="RayCast2D3" type="RayCast2D" parent="Cannons/RayCasts" index="2"]
+target_position = Vector2(-100, 0)
+collision_mask = 4
+collide_with_areas = true
+metadata/id = 2
+
+[node name="RayCast2D4" type="RayCast2D" parent="Cannons/RayCasts" index="3"]
+target_position = Vector2(0, -100)
+collision_mask = 4
+collide_with_areas = true
+metadata/id = 3
+
+[node name="Marker2D" parent="Cannons/Crossairs" index="0"]
+position = Vector2(0, 0)
+
+[node name="Marker2D2" type="Marker2D" parent="Cannons/Crossairs" index="1"]
+metadata/shoot_direction = 1
+
+[node name="Marker2D3" type="Marker2D" parent="Cannons/Crossairs" index="2"]
+metadata/shoot_direction = 2
+
+[node name="Marker2D4" type="Marker2D" parent="Cannons/Crossairs" index="3"]
+metadata/shoot_direction = 0
