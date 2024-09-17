@@ -192,6 +192,25 @@ func spawn_power() -> void:
 	powers.add_child(power_instance)
 	power_instance.grabbed.connect(_on_power_grabbed)
 
+## Adds the effect of a power.
+func add_power_effect(power) -> void:
+	match power:
+		Global.powers.ADD_CANNON:
+			player.cannon_stage = clamp(player.cannon_stage + 1, 0, 3)
+		Global.powers.ARMOR:
+			player.has_armor = true
+			
+			if button_left != null:
+				set_button_action(button_left, actions.TURN_LEFT)
+			if button_right != null:
+				set_button_action(button_center, actions.MOVE)
+			if button_right != null:
+				set_button_action(button_right, actions.TURN_RIGHT)
+		Global.powers.DOUBLE_POINTS:
+			score_multiplier *= 2
+		Global.powers.ZOOM_OUT:
+			camera.set_new_zoom(Vector2(1, 1))
+
 func _ready():
 	score = 0
 	
@@ -289,6 +308,9 @@ func _on_power_grabbed(power):
 		
 		# Just restart the timer if the power's already active and if it's not an armor power.
 		if power == power_timer.power and power != Global.powers.ARMOR:
+			# Still adds a new cannon.
+			if power == Global.powers.ADD_CANNON:
+				add_power_effect(power)
 			power_timer.restart()
 			return
 	
@@ -304,24 +326,9 @@ func _on_power_grabbed(power):
 		for power_timer : PowerTimer in power_timers.get_children():
 			power_timer.stop_ended()
 	
-	var power_timer_instance : PowerTimer = powerTimerScene.instantiate()
+	add_power_effect(power)
 	
-	match power:
-		Global.powers.ADD_CANNON:
-			player.cannon_stage = clamp(player.cannon_stage + 1, 0, 3)
-		Global.powers.ARMOR:
-			player.has_armor = true
-			
-			if button_left != null:
-				set_button_action(button_left, actions.TURN_LEFT)
-			if button_right != null:
-				set_button_action(button_center, actions.MOVE)
-			if button_right != null:
-				set_button_action(button_right, actions.TURN_RIGHT)
-		Global.powers.DOUBLE_POINTS:
-			score_multiplier *= 2
-		Global.powers.ZOOM_OUT:
-			camera.set_new_zoom(Vector2(1, 1))
+	var power_timer_instance : PowerTimer = powerTimerScene.instantiate()
 	
 	power_timers.add_child(power_timer_instance)
 	power_timer_instance.set_power(power)
