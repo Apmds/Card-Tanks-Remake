@@ -223,7 +223,7 @@ func _ready():
 			spawnable_tanks.append(load("res://Scenes/ai_tank_double_line.tscn"))
 			spawnable_tanks.append(load("res://Scenes/ai_tank_double_l.tscn"))
 		Global.gameModes.POWER_MANIA:
-			spawnable_tanks.append(load("res://Scenes/ai_tank.tscn"))
+			spawnable_tanks.append(load("res://Scenes/mortar.tscn"))
 			spawn_powers = true
 	
 	if button_left != null:

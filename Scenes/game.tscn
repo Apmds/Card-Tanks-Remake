@@ -63,12 +63,20 @@ texture = ExtResource("2_dgwsf")
 position = Vector2(192, 384)
 texture = ExtResource("2_dgwsf")
 
-[node name="Sprite2D5" type="Sprite2D" parent="Background/ParallaxLayer"]
-position = Vector2(384, 768)
+[node name="Sprite2D6" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(576, 768)
 texture = ExtResource("2_dgwsf")
 
 [node name="Sprite2D3" type="Sprite2D" parent="Background/ParallaxLayer"]
 position = Vector2(384, 0)
+texture = ExtResource("2_dgwsf")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(576, 0)
+texture = ExtResource("2_dgwsf")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Background/ParallaxLayer"]
+position = Vector2(384, 768)
 texture = ExtResource("2_dgwsf")
 
 [node name="Sprite2D4" type="Sprite2D" parent="Background/ParallaxLayer"]
