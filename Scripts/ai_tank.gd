@@ -80,6 +80,43 @@ func update_chase_variables() -> void:
 		0:
 			chase_direction = directions.RIGHT
 
+## What to do when the tank has the LOOK_AROUND mode.
+func look_around_action() -> void:
+	var rand : float = randf()
+	if rand < 0.25:
+		rotate_left()
+	elif rand < 0.5:
+		rotate_right()
+	elif rand < 0.75:
+		rotate_left(false, true)
+	else:
+		rotate_right(false, true)
+	
+	update_raycasts()
+	if raycasts_colliding():
+		update_chase_variables()
+		set_mode(modes.ATTACK)
+
+## What to do when the tank has the CHASE mode.
+func chase_action() -> void:
+	set_direction(chase_direction)
+	move()
+	
+	update_raycasts()
+	if raycasts_colliding():
+		set_mode(modes.ATTACK)
+	elif grid_position == chase_pos:
+		set_mode(modes.LOOK_AROUND)
+
+## What to do when the tanks has the ATTACK mode.
+func attack_action() -> void:
+	update_raycasts()
+	if raycasts_colliding():
+		update_chase_variables()
+		shoot_all()
+	else:
+		set_mode(modes.CHASE)
+
 func _ready():
 	super._ready()
 	randomize()
@@ -93,36 +130,11 @@ func _physics_process(_delta):
 func _on_timer_timeout():
 	match mode:
 		modes.LOOK_AROUND:
-			var rand : float = randf()
-			if rand < 0.25:
-				rotate_left()
-			elif rand < 0.5:
-				rotate_right()
-			elif rand < 0.75:
-				rotate_left(false, true)
-			else:
-				rotate_right(false, true)
-			
-			update_raycasts()
-			if raycasts_colliding():
-				update_chase_variables()
-				set_mode(modes.ATTACK)
+			look_around_action()
 		modes.CHASE:
-			set_direction(chase_direction)
-			move()
-			
-			update_raycasts()
-			if raycasts_colliding():
-				set_mode(modes.ATTACK)
-			elif grid_position == chase_pos:
-				set_mode(modes.LOOK_AROUND)
+			chase_action()
 		modes.ATTACK:
-			update_raycasts()
-			if raycasts_colliding():
-				update_chase_variables()
-				shoot_all()
-			else:
-				set_mode(modes.CHASE)
+			attack_action()
 		modes.DESTROYED:
 			timer.stop()
 

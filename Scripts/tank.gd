@@ -204,6 +204,7 @@ func shoot(crossair : Marker2D) -> void:
 		add_child(bullet_instance)
 	else:
 		owner.add_child(bullet_instance)
+	bullet_instance.destroyed.connect(_on_bullet_destroyed)
 
 ## Explodes the tank.
 func explode() -> void:
@@ -233,3 +234,7 @@ func _ready():
 func _on_area_entered(area):
 	if area is Tank:
 		explode()
+
+# Override
+func _on_bullet_destroyed():
+	pass
